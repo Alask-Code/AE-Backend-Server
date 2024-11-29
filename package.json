@@ -11,7 +11,7 @@
   "dependencies": {
     "uuid": "^8.3.2",
     "ps-list": "8.1.1",
-    "selfsigned": "1.10.7",
+    "selfsigned": "2.4.1",
     "write-json-file": "^4.3.0"
   },
   "devDependencies": {
