@@ -12,7 +12,7 @@
     "uuid": "^8.3.2",
     "ps-list": "8.1.1",
     "selfsigned": "1.10.7",
-    "write-json-file": "^4.3.0"
+    "write-json-file": "^6.0.0"
   },
   "devDependencies": {
     "upx": "1.0.6",
