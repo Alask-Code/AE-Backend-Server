@@ -1,23 +1,17 @@
-/*
-* MaociStyle v1.0.0 - a lightweight boilerplate style
-* Created by TheMaoci 01/11/2019 using some things from Skeleton library
-* Skeleton library - Dave Gamache - getskeleton.com
-*/
-/* Maoci Website styles */
 @font-face {
 	font-family: Bender;
 	src: url("bender.light.otf") format("opentype");
 }
 * {
 	letter-spacing: 0.15rem;
-	font-family: Bender;
+	font-family: system-ui;
 }
 body {
-	color: red!important;
+	color: red !important;
 	background: black;
 }
 li {
-	color: #e1e0c6 !important
+	color: #e1e0c6 !important;
 }
 a {
 	color: aqua;
@@ -25,10 +19,10 @@ a {
 	text-decoration: none;
 }
 i {
-	color: rgba(255, 0, 0, 0.7)
+	color: rgba(255, 0, 0, 0.7);
 }
 i b {
-	color: rgba(255, 0, 0, 0.9)
+	color: rgba(255, 0, 0, 0.9);
 }
 a:hover {
 	color: #f00;
@@ -41,63 +35,65 @@ a:hover {
 	padding: 5px;
 }
 h1 {
-	font-size: 3rem!important;
+	font-size: 3rem !important;
 	line-height: 3.5rem;
 	text-transform: capitalize;
 }
 h2 {
-	font-size:2rem!important;
-	line-height:2rem!important;
-	margin:0!important;
-	padding:0!important;
+	font-size: 2rem !important;
+	line-height: 2rem !important;
+	margin: 0 !important;
+	padding: 0 !important;
 	text-transform: capitalize;
 }
 h3 {
-	margin:0!important;
-	padding:0!important;
+	margin: 0 !important;
+	padding: 0 !important;
 	text-transform: capitalize;
 }
 
 /* Form */
-.form{
-	margin:15px auto;
-	border-radius:2px;
+.form {
+	margin: 15px auto;
+	border-radius: 2px;
 }
-.form div{ padding:20px;}
-.form h1{
+.form div {
+	padding: 20px;
+}
+.form h1 {
 	display: block;
 	text-align: center;
 	padding: 0;
 	margin: 0px 0px 20px 0px;
-	color: #5C5C5C;
-	font-size:x-large;
+	color: #5c5c5c;
+	font-size: x-large;
 }
-.form ul{
-	list-style:none;
-	padding:0;
-	margin:0;	
+.form ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
-.form li{
+.form li {
 	display: block;
 	padding: 9px;
-	border:1px solid #DDDDDD;
+	border: 1px solid #dddddd;
 	margin-bottom: 30px;
 	border-radius: 3px;
 }
-.form li.submit{
-	border:none;
+.form li.submit {
+	border: none;
 	margin-bottom: 0px;
 	text-align: center;
 }
-.form li > label{
+.form li > label {
 	display: block;
 	float: left;
 	margin-top: -33px;
 	height: 18px;
 	padding: 2px 5px 2px 5px;
-	color: #F00;
+	color: #f00;
 	font-size: 16px;
-	font-height: 900;
+	font-weight: 900;
 	overflow: hidden;
 	text-transform: capitalize;
 }
@@ -111,11 +107,10 @@ h3 {
 .form input[type="url"],
 .form input[type="password"],
 .form textarea,
-.form select 
-{
-	box-sizing: border-box;
+.form select {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 	width: 100%;
 	display: block;
 	outline: none;
@@ -127,20 +122,8 @@ h3 {
 	background: #555555aa;
 	color: #fff;
 }
-.form input[type="text"]:focus,
-.form input[type="date"]:focus,
-.form input[type="datetime"]:focus,
-.form input[type="email"]:focus,
-.form input[type="number"]:focus,
-.form input[type="search"]:focus,
-.form input[type="time"]:focus,
-.form input[type="url"]:focus,
-.form input[type="password"]:focus,
-.form textarea:focus,
-.form select:focus 
-{
-}
-.form li > span{
+
+.form li > span {
 	background: #555555aa;
 	display: block;
 	padding: 3px;
@@ -150,22 +133,22 @@ h3 {
 	font-size: 11px;
 	text-transform: capitalize;
 }
-.form textarea{
-	resize:none;
+.form textarea {
+	resize: none;
 }
 .form input[type="submit"],
-.form input[type="button"]{
+.form input[type="button"] {
 	background: #555555aa;
 	border: none;
 	padding: 10px 20px 10px 20px;
-	border-bottom: 3px solid #F00;
+	border-bottom: 3px solid #f00;
 	border-radius: 3px;
 	color: #fff;
 }
 .form input[type="submit"]:hover,
-.form input[type="button"]:hover{
+.form input[type="button"]:hover {
 	background: #888888aa;
-	color:#FF0;
+	color: #ff0;
 }
 
 /* Grid */
@@ -219,19 +202,19 @@ h1 {
 	font-weight: 300;
 }
 h1 {
-	font-size: 4.0rem;
+	font-size: 4rem;
 	line-height: 1.2;
-	letter-spacing: -.1rem;
+	letter-spacing: -0.1rem;
 }
 /* Larger than phablet */
 @media (min-width: 550px) {
 	h1 {
-		font-size: 5.0rem;
+		font-size: 5rem;
 	}
 }
 @media (min-width: 1000px) {
 	h1 {
-		font-size: 3.0rem;
+		font-size: 3rem;
 	}
 }
 p {
@@ -279,22 +262,47 @@ p {
 	.ten.columns,
 	.eleven.columns,
 	.twelve.columns {
-		width: 100%; 
+		width: 100%;
 		margin-left: 0;
 	}
 }
 @media (min-width: 1200px) {
 	.one.column,
-	.one.columns { width: 4.66666666667%; }
-	.two.columns { width: 13.3333333333%; }
-	.three.columns { width: 22%; }
-	.four.columns { width: 30.6666666667%; }
-	.five.columns { width: 39.3333333333%; }
-	.six.columns { width: 48%; }
-	.seven.columns { width: 56.6666666667%; }
-	.eight.columns { width: 65.3333333333%; }
-	.nine.columns { width: 74.0%; }
-	.ten.columns { width: 82.6666666667%; }
-	.eleven.columns { width: 91.3333333333%; }
-	.twelve.columns { width: 100%; margin-left: 0; }
+	.one.columns {
+		width: 4.66666666667%;
+	}
+	.two.columns {
+		width: 13.3333333333%;
+	}
+	.three.columns {
+		width: 22%;
+	}
+	.four.columns {
+		width: 30.6666666667%;
+	}
+	.five.columns {
+		width: 39.3333333333%;
+	}
+	.six.columns {
+		width: 48%;
+	}
+	.seven.columns {
+		width: 56.6666666667%;
+	}
+	.eight.columns {
+		width: 65.3333333333%;
+	}
+	.nine.columns {
+		width: 74%;
+	}
+	.ten.columns {
+		width: 82.6666666667%;
+	}
+	.eleven.columns {
+		width: 91.3333333333%;
+	}
+	.twelve.columns {
+		width: 100%;
+		margin-left: 0;
+	}
 }

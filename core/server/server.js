@@ -9,7 +9,7 @@ class Server {
         this.backendUrl = "https://" + this.ip + ":" + this.port;
 		this.second_backendUrl = "https://" + serverConfig.ip_backend + ":" + this.port;
         
-        this.version = "1.0.0";
+        this.version = "2.0.0";
         this.mime = {
             html: 'text/html',
             txt: 'text/plain',
