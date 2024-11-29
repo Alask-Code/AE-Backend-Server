@@ -1,0 +1,10 @@
+{
+	"started": {},
+	"success": {
+		"nugentTrade_Exoskeleton_Helmet_New": "nugentQuest12",
+		"nugentTrade_Exoskeleton_Helmet_Repair": "nugentQuest12",
+		"nugentTrade_Exoskeleton_Armor_New": "nugentQuest13",
+		"nugentTrade_Exoskeleton_Armor_Repair": "nugentQuest13"
+	},
+	"fail": {}
+}

@@ -1,0 +1,34 @@
+{
+	"AID8131647517931710690RF": {
+		"id": "AID8131647517931710690RF",
+		"nickname": "",
+		"email": "Maoci",
+		"password": "123",
+		"wipe": false,
+		"edition": "Edge Of Darkness"
+	},
+	"AID1017212238708719587Gf": {
+		"id": "AID1017212238708719587Gf",
+		"nickname": "",
+		"email": "test",
+		"password": "test",
+		"wipe": false,
+		"edition": "Edge Of Darkness"
+	},
+	"AID10271716524193211713b": {
+		"id": "AID10271716524193211713b",
+		"nickname": "",
+		"email": "test2",
+		"password": "123",
+		"wipe": false,
+		"edition": "Developer"
+	},
+	"AID0101611145605726570wE": {
+		"id": "AID0101611145605726570wE",
+		"nickname": "",
+		"email": "kioa",
+		"password": "kioa",
+		"wipe": false,
+		"edition": "Edge Of Darkness"
+	}
+}

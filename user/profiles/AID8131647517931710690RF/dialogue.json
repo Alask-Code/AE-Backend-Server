@@ -1,0 +1,21 @@
+{
+	"54cb57776803fa99248b456e": {
+		"_id": "54cb57776803fa99248b456e",
+		"messages": [
+			{
+				"_id": "D-a102b40e-0789-4166-8267-bb01ab5351f1",
+				"uid": "54cb57776803fa99248b456e",
+				"type": 10,
+				"dt": 1617293050.826,
+				"templateId": "5abe61a786f7746ad512da4e",
+				"hasRewards": false,
+				"rewardCollected": false,
+				"items": {},
+				"maxStorageTime": 172800
+			}
+		],
+		"pinned": false,
+		"new": 1,
+		"attachmentsNew": 0
+	}
+}

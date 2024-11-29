@@ -1,0 +1,23 @@
+{
+  "name": "ae-backend-server",
+  "version": "1.0.0",
+  "main": "core/main.js",
+  "author": "TheMaoci",
+  "license": "MIT",
+  "scripts": {
+    "start": "node core/main.js",
+    "build": "node build/main.js"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2",
+    "ps-list": "8.1.1",
+    "selfsigned": "1.10.7",
+    "write-json-file": "^4.3.0"
+  },
+  "devDependencies": {
+    "upx": "1.0.6",
+    "nexe": "3.3.7",
+    "node-minify": "3.6.0",
+    "child_process": "1.0.2"
+  }
+}

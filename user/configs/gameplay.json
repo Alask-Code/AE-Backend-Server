@@ -1,0 +1,103 @@
+{
+	"autosave": {
+		"saveOnReceive": true,
+		"saveOnExit": true,
+		"saveIntervalSec": 9999
+	},
+	"inraid": {
+		"saveLootEnabled": true,
+		"saveWeaponDurability": true,
+		"saveHealthEnabled": true,
+		"saveHealthMultiplier": 0.1,
+		"miaOnTimerEnd": true
+	},
+	"other": {
+		"RedeemTime": 48
+	},
+	"defaultRaidSettings": {
+		"aiAmount": "AsOnline",
+		"aiDifficulty": "AsOnline",
+		"bossEnabled": true,
+		"scavWars": false,
+		"taggedAndCursed": false
+	},
+	"bots": {
+		"pmc": {
+			"enabled": true,
+			"usecChance": 50,
+			"types": {
+				"followerTest": 100,
+                "bossTest": 100,
+                "assault": 35,
+                "pmcBot": 35
+			}
+		},
+		"limits": {
+			"assault": 30,
+			"marksman": 30,
+			"pmcBot": 30,
+			"bossBully": 30,
+			"bossGluhar": 30,
+			"bossKilla": 30,
+			"bossKojaniy": 30,
+			"bossSanitar": 30,
+			"followerBully": 30,
+			"followerGluharAssault": 30,
+			"followerGluharScout": 30,
+			"followerGluharSecurity": 30,
+			"followerGluharSnipe": 30,
+			"followerKojaniy": 30,
+			"followerSanitar": 30,
+			"test": 30,
+			"followerTest": 30,
+			"bossTest": 30
+		}
+	},
+	"trading": {
+		"ragfairMultiplier": 3.5,
+		"repairMultiplier": 1,
+		"insureMultiplier": 0.1,
+		"insureReturnChance": 75,
+		"fenceAssortSize": 60,
+		"fenceRefreshInterval": 600,
+		"buyItemsMarkedFound": false
+	},
+	"location": {
+		"realTimeEnabled": true,
+		"forceWeatherEnabled": false,
+		"forceWeatherId": false
+	},
+	"locationloot": {
+		"containers": {
+			"ChanceForEmpty": 10,
+			"ChanceToSpawnNextItem": 40,
+			"AttemptsToPlaceLoot": 15,
+			"RarityMultipliers":{
+				"Not_exist": 0,
+				"Common": 1,
+				"Rare": 0.7,
+				"Superrare": 0.4
+			}
+		},
+		"allowLootOverlap": false,
+		"bigmap": 10000,
+		"develop": 30,
+		"factory4_day": 1000,
+		"factory4_night": 1000,
+		"interchange": 25000,
+		"laboratory": 10000,
+		"rezervbase": 30000,
+		"shoreline": 15000,
+		"woods": 5000,
+		"hideout": false,
+		"lighthouse": false,
+		"privatearea": false,
+		"suburbs": false,
+		"tarkovstreets": false,
+		"terminal": false,
+		"town": false
+	},
+	"match": {
+		"enabled": true
+	}
+}

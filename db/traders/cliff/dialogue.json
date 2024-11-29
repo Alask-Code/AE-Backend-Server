@@ -1,0 +1,27 @@
+{
+	"insuranceStart": [
+		"cliffinsurancestart",
+		"cliffstart2",
+		"cliffstart3"
+	],
+	"insuranceFound": [
+		"cliffinsurancefound",
+		"clifffound2",
+		"clifffound3"
+	],
+	"insuranceFailed": [
+		"cliffinsurnacefail",
+		"clifffail2",
+		"clifffail3"
+	],
+	"insuranceExpired": [
+		"cliffinsuranceexpire",
+		"cliffexpire2",
+		"cliffexpire3"
+	],
+	"insuranceComplete": [
+		"cliffinsurancecomplete",
+		"cliffcomplete2",
+		"cliffcomplete3"
+	]
+}

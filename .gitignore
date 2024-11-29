@@ -1,0 +1,6 @@
+dev/bin/ResourceHacker.ini
+package-lock.json
+node_modules/
+user/cache
+user/logs
+_Dist
