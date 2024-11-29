@@ -20,4 +20,3 @@ del Server.exe /q
 del Server-Icon.exe /q
 del Server-Uncompressed.exe /q
 echo Cleaner Exiting...
-pause
