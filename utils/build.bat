@@ -1,5 +1,4 @@
 @echo off
-cd ..
 node build/main.js
 echo 'Server.exe' Build Finished, any Key to Create '_Dist' Folder
 pause
