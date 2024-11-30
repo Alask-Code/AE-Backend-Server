@@ -17,7 +17,10 @@
     "write-json-file": "^4.3.0"
   },
   "devDependencies": {
+    "@electron-internal/eslint-config": "^1.0.1",
     "child_process": "1.0.2",
+    "eslint": "^8.57.1",
+    "eslint-plugin-node": "^11.1.0",
     "nexe": "3.3.3",
     "node-minify": "3.6.0",
     "nodemon": "^3.1.7",
