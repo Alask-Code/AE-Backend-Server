@@ -1,6 +1,6 @@
 {
   "name": "ae-backend-server",
-  "version": "1.0.0",
+  "version": "1.0.0-rc1",
   "main": "core/main.js",
   "author": "TheMaoci",
   "license": "MIT",
