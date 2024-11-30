@@ -5,6 +5,7 @@
   "author": "TheMaoci",
   "license": "MIT",
   "scripts": {
+    "dev": "nodemon core/main.js",
     "start": "node core/main.js",
     "cleanCache": "utils\\cleanCache.bat",
     "build": "utils\\build.bat"
