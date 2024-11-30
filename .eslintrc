@@ -1,0 +1,5 @@
+{
+  "extends":[
+    "@electron-internal/eslint-config"
+  ]
+}

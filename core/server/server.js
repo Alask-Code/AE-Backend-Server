@@ -9,7 +9,7 @@ class Server {
         this.backendUrl = "https://" + this.ip + ":" + this.port;
 		this.second_backendUrl = "https://" + serverConfig.ip_backend + ":" + this.port;
         
-        this.version = "2.0.0";
+        this.version = "1.0.0-rc1";
         this.mime = {
             html: 'text/html',
             txt: 'text/plain',
@@ -159,7 +159,6 @@ class Server {
             fileStream.pipe(resp);
         });
     }
-
     killResponse() {
         return;
     }
@@ -282,6 +281,7 @@ class Server {
         /* create server */
         let httpsServer = internal.https.createServer(this.generateCertificate(), (req, res) => {
             this.handleRequest(req, res);
+
         }).listen(this.port, this.ip, function() {
             logger.logSuccess(`Server is working at: ${backend}`);
         });
@@ -364,23 +364,9 @@ class Server {
         }
 		
 		// Load Global Accesable Data Structures
-		/*
-			TODO: add more data here to not load them like retard each time aka assort etc. ~TheMaoci
-			// 
-			global.global._database.items
-			global.global._database.globals
-			global.global._database.templates
-			global.global._database.gameplayConfig
-			global.global._database.assort[traderID]
-			global.global._database.someothershit
-		*/
+		
 		global.core.route.TamperModLoad(); // TamperModLoad
 
-		/*console.log("staticRoutes")
-		console.log(router.staticRoutes)
-		console.log("dynamicRoutes")
-		console.log(router.dynamicRoutes)
-		return;*/
 		
 		logger.logInfo("Starting server...");
 		this._serverStart();

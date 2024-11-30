@@ -2,8 +2,8 @@
   "name": "ae-backend-server",
   "version": "1.0.0-rc1",
   "main": "core/main.js",
-  "author": "TheMaoci",
-  "license": "MIT",
+  "author": "Alask-Code",
+  "license": "GPL-3.0-only",
   "scripts": {
     "dev": "nodemon core/main.js",
     "start": "node core/main.js",
