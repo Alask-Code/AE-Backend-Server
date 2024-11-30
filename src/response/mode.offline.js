@@ -1,5 +1,5 @@
 exports.execute = (url, info, sessionID) => {
-	return response_f.noBody(
-		serverConfig.offline
-	);
-}
+  return response_f.noBody(
+    serverConfig.offline
+  );
+};

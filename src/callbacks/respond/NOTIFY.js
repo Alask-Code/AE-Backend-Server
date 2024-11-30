@@ -3,8 +3,8 @@
 // until we actually have something to send because otherwise we'd spam the client
 // and the client would abort the connection due to spam.
 exports.execute = (sessionID, req, resp, data) => {
-    let splittedUrl = req.url.split('/');
+  let splittedUrl = req.url.split('/');
 
-    sessionID = splittedUrl[splittedUrl.length - 1].split("?last_id")[0];
-    notifier_f.handler.notificationWaitAsync(resp, sessionID);
-}
+  sessionID = splittedUrl[splittedUrl.length - 1].split('?last_id')[0];
+  notifier_f.handler.notificationWaitAsync(resp, sessionID);
+};
