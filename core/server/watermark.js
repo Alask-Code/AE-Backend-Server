@@ -45,7 +45,7 @@ function getBoxSpacing(isUpper = 0, text = ''){
 module.exports.run = () => {
   /* set window name */
   internal.process.stdout.setEncoding('utf8');
-  internal.process.title = textTable[0];
+  internal.process.title = 'AE Backend Server';
 
   // Get longest string here
   let lastText = '';

@@ -69,7 +69,6 @@ class Initializer
   initializeItemRoute() {
     logger.logSuccess('Create: Item Action Callbacks');
     // Load Item Route's
-    // move this later to other file or something like that :)
     item_f.handler.updateRouteStruct();
     let itemHandlers = '';
     for(let iRoute in item_f.handler.routeStructure){
@@ -95,5 +94,4 @@ class Initializer
     logger.logInfo('[Modules] ' + loadedModules.slice(0, -2));
   }
 }
-
 module.exports.initializer = new Initializer();

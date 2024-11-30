@@ -40,7 +40,7 @@
 		"NoFiltersPatch": false
 	},
 	"lootDebug": false,
-	"hideInfoLogs": true,
+	"hideInfoLogs": false,
 	"debugTimer": true,
 	"translations": {
 		"alreadyInUse": "The nickname is already in use",

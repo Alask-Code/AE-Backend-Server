@@ -55,6 +55,14 @@ class Router {
     let output = '';
     let url = req.url;
     let info = {};
+    console.log('=================');
+    console.log(body);
+    console.log(req.url);
+    console.log(sessionID);
+    console.log('=================');
+    
+  
+    
     if(typeof body != 'object'){
       /* parse body */
       if (body !== '') {
@@ -63,6 +71,8 @@ class Router {
     } else {
       if(url.includes('/server/config') && !url.includes('.css')){
         info = body;
+        console.log(info);
+        
       }
     }
     /* remove retry from URL */
@@ -79,10 +89,11 @@ class Router {
       for (let key in this.dynamicRoutes) {
         if (url.includes(key)) {
           output = this.dynamicRoutes[key](url, info, sessionID);
+          console.log(output);
+          
         }
       }
     }
-    
     return output;
   }
 }
