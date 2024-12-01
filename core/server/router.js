@@ -52,14 +52,22 @@ class Router {
   }
 
   getResponse(req, body, sessionID) {
+    
     let output = '';
     let url = req.url;
     let info = {};
-    console.log('=================');
+    console.log('=[START HEADERS]=');
+    console.log(req.headers);
+    console.log(typeof(body));
+    console.log('=[END HEADERS]=');
+    console.log('===============');
+
+    console.log('=[START BODY]=');
     console.log(body);
+    console.log('=[END BODY]=');
+     
     console.log(req.url);
     console.log(sessionID);
-    console.log('=================');
     
   
     
