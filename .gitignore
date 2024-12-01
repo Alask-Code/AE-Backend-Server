@@ -1,6 +1,10 @@
 dev/bin/ResourceHacker.ini
+Server-Uncompressed.exe
 package-lock.json
+Server-Icon.exe
 node_modules/
+Server.exe
 user/cache
 user/logs
 _Dist
+*.7z
