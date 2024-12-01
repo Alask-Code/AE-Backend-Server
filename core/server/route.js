@@ -1,10 +1,10 @@
 'use strict';
 // getModFilepath
-function getModFilepath(mod) {
+function getModFilepath (mod) {
   return 'user/mods/' + mod.author + '-' + mod.name + '-' + mod.version + '/';
 }
 // scanRecursiveMod
-function scanRecursiveMod(filepath, baseNode, modNode) {
+function scanRecursiveMod (filepath, baseNode, modNode) {
   if (typeof modNode === 'string') {
     baseNode = filepath + modNode;
   }
@@ -19,7 +19,7 @@ function scanRecursiveMod(filepath, baseNode, modNode) {
   return baseNode;
 }
 // detectChangedMods
-function detectChangedMods() {
+function detectChangedMods () {
   let changed = false;
   for (let mod of modsConfig) {
     if (!fileIO.exist(getModFilepath(mod) + 'mod.config.json')) {
@@ -38,7 +38,7 @@ function detectChangedMods() {
   return changed;
 }
 // detectMissingMods
-function detectMissingMods() {
+function detectMissingMods () {
   if (!fileIO.exist('user/mods/')) {
     return;
   }
@@ -77,7 +77,7 @@ function detectMissingMods() {
   }
 }
 // isRebuildRequired
-function isRebuildRequired() {
+function isRebuildRequired () {
   if (!fileIO.exist('user/cache/mods.json')
     || !fileIO.exist('user/cache/db.json')
     || !fileIO.exist('user/cache/res.json')) {
@@ -99,18 +99,18 @@ function isRebuildRequired() {
   return false;
 }
 // loadMod
-function loadMod(mod, filepath, LoadType) {
+function loadMod (mod, filepath, LoadType) {
   let modName = `${mod.author}-${mod.name}-${mod.version}`;
   if(typeof mod.src != 'undefined')
-    for(let srcToExecute in mod.src){
-      if(mod.src[srcToExecute] == LoadType){
+    for(let srcToExecute in mod.src) {
+      if(mod.src[srcToExecute] == LoadType) {
         let path = `../../user/mods/${modName}/${srcToExecute}`;
         let ModScript = require(path).mod;
         ModScript(mod); // execute mod
       }
     }
 }
-function loadModSrc(mod, filepath){
+function loadModSrc (mod, filepath) {
   if(typeof mod.res != 'undefined')
     res = scanRecursiveMod(filepath, res, mod.res);
 }
@@ -148,18 +148,18 @@ exports.TamperModLoad = () => {
   }
 };
 // flush
-function flush() {
+function flush () {
   db = {};
   res = {};
 }
 // dump
-function dump() {
+function dump () {
   if(fileIO.exist('db/'))
     fileIO.write('user/cache/db.json', db);
   fileIO.write('user/cache/res.json', res);
 }
 // scanRecursiveRoute
-function scanRecursiveRoute(filepath, deep = false) {
+function scanRecursiveRoute (filepath, deep = false) {
   if(filepath == 'db/')
     if(!fileIO.exist('db/'))
       return;
@@ -187,7 +187,7 @@ function scanRecursiveRoute(filepath, deep = false) {
   return baseNode;
 }
 // routeAll
-function routeAll() {
+function routeAll () {
   logger.logInfo('Rebuilding cache: route database');
   db = scanRecursiveRoute('db/');
   logger.logInfo('Rebuilding cache: route ressources');
@@ -210,8 +210,7 @@ exports.all = () => {
   if (!fileIO.exist('user/mods/')) {
     fileIO.mkDir('user/mods/');
   }
-  if(!fileIO.exist('./user/cache') || fileIO.readDir('./user/cache').length < 31)
-  { // health number of cache file count is 31 as for now ;)
+  if(!fileIO.exist('./user/cache') || fileIO.readDir('./user/cache').length < 31) { // health number of cache file count is 31 as for now ;)
     logger.logError('Missing files! Rebuilding cache required!');
     serverConfig.rebuildCache = true;
   }

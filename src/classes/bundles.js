@@ -1,12 +1,12 @@
 'use strict';
 const path = require('path');
 class BundlesServer {
-  constructor() {
+  constructor () {
     this.bundles = [];
     this.bundleBykey = {};
     this.backendUrl = `https://${serverConfig.ip}:${serverConfig.port}`;
   }
-  initialize(sessionID) {
+  initialize (sessionID) {
     for (const i in res.bundles) {
       if(!('manifest' in res.bundles[i])) {
         continue;
@@ -35,7 +35,7 @@ class BundlesServer {
       }
     }
   }
-  getBundles(local) {
+  getBundles (local) {
     let bundles = helper_f.clone(this.bundles);
     for (const bundle of bundles) {
       if(local) {
@@ -45,7 +45,7 @@ class BundlesServer {
     }
     return bundles;
   }
-  getBundleByKey(key, local) {
+  getBundleByKey (key, local) {
     let bundle = helper_f.clone(this.bundleBykey[key]);
     if(local) {
       bundle.path = bundle.filePath;
@@ -53,10 +53,10 @@ class BundlesServer {
     delete bundle.filePath;
     return bundle;
   }
-  getFilePath(bundleDir, key) {
+  getFilePath (bundleDir, key) {
     return `${internal.path.join(__dirname).split('src')[0]}user/mods/${bundleDir}StreamingAssets/Windows/${key}`.replace(/\\/g, '/');
   }
-  getHttpPath(bundleDir, key) {
+  getHttpPath (bundleDir, key) {
     return `${this.backendUrl}/files/bundle/${key}`;
   }
 }

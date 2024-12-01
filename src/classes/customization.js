@@ -1,12 +1,12 @@
 'use strict';
-function getCustomization() {
+function getCustomization () {
   return global._database.customization;
 }
-function getPath(sessionID) {
+function getPath (sessionID) {
   let path = db.user.profiles.storage;
   return path.replace('__REPLACEME__', sessionID);
 }
-function wearClothing(pmcData, body, sessionID) {
+function wearClothing (pmcData, body, sessionID) {
   for (let i = 0; i < body.suites.length; i++) {
     let suite = global._database.customization[body.suites[i]];
     // this parent reffers to Lower Node
@@ -21,7 +21,7 @@ function wearClothing(pmcData, body, sessionID) {
   }
   return item_f.handler.getOutput();
 }
-function buyClothing(pmcData, body, sessionID) {
+function buyClothing (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   let storage = fileIO.readParsed(getPath(sessionID));
   let offers = trader_f.handler.getAllCustomization(sessionID);

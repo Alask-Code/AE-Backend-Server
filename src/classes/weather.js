@@ -1,9 +1,9 @@
 'use strict';
 let weather = undefined;
-function initialize() {
+function initialize () {
   weather = fileIO.readParsed(db.user.cache.weather);
 }
-function generate() {
+function generate () {
   let output = {};
   // set weather
   if (global._database.gameplayConfig.location.forceWeatherEnabled) {

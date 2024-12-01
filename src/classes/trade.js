@@ -7,7 +7,7 @@ exports.buyItem = (pmcData, body, sessionID) => {
   const newReq = {
     'items': [{
       'item_id': body.item_id,
-      'count': body.count,
+      'count': body.count
     }],
     'tid': body.tid
   };
@@ -73,10 +73,8 @@ exports.confirmRagfairTrading = (pmcData, body, sessionID) => {
       'scheme_id': 0,
       'scheme_items': offer.items
     };
-    for(let offerFromTrader of ragfair_offers_traders.offers)
-    {
-      if(offerFromTrader._id == offer.id)
-      {
+    for(let offerFromTrader of ragfair_offers_traders.offers) {
+      if(offerFromTrader._id == offer.id) {
         body.tid = offerFromTrader.user.id;
         break;
       }

@@ -1,18 +1,18 @@
 'use strict';
 const { logger } = require('../../core/util/logger');
 class InraidServer {
-  constructor() {
+  constructor () {
     // this needs to be saved on drive so if player closes server it can keep it going after restart
     this.players = {};
   }
-  addPlayer(sessionID, info) {
+  addPlayer (sessionID, info) {
     this.players[sessionID] = info;
   }
-  removePlayer(sessionID) {
+  removePlayer (sessionID) {
     delete this.players[sessionID];
   }
-  removeMapAccessKey(offraidData, sessionID) {
-    if(typeof offraid_f.handler.players[sessionID] == 'undefined'){
+  removeMapAccessKey (offraidData, sessionID) {
+    if(typeof offraid_f.handler.players[sessionID] == 'undefined') {
       logger.logWarning('Disabling: Remove map key on entering, cause of offraid_f.handler.players[sessionID] is undefined');
       return;
     }
@@ -24,7 +24,7 @@ class InraidServer {
     for (let item of offraidData.profile.Inventory.items) {
       if (item._tpl === mapKey && item.slotId !== 'Hideout') {
         let usages = -1;
-        if(!helper_f.getItem(mapKey)[1]._props.MaximumNumberOfUsage){
+        if(!helper_f.getItem(mapKey)[1]._props.MaximumNumberOfUsage) {
           usages = 1;
         }else{
           usages = ('upd' in item && 'Key' in item.upd) ? item.upd.Key.NumberOfUsages : -1;
@@ -43,7 +43,7 @@ class InraidServer {
   }
 }
 /* adds SpawnedInSession property to items found in a raid */
-function markFoundItems(pmcData, profile, isPlayerScav) {
+function markFoundItems (pmcData, profile, isPlayerScav) {
   // thanks Mastah Killah#1650
   // mark items found in raid
   for (let offraidItem of profile.Inventory.items) {
@@ -78,7 +78,7 @@ function markFoundItems(pmcData, profile, isPlayerScav) {
   }
   return profile;
 }
-function RemoveFoundItems(profile) {
+function RemoveFoundItems (profile) {
   for (let offraidItem of profile.Inventory.items) {
     // Remove the FIR status if the player died and the item marked FIR
     if ('upd' in offraidItem && 'SpawnedInSession' in offraidItem.upd) {
@@ -88,7 +88,7 @@ function RemoveFoundItems(profile) {
   }
   return profile;
 }
-function setInventory(pmcData, profile) {
+function setInventory (pmcData, profile) {
   move_f.removeItemFromProfile(pmcData, pmcData.Inventory.equipment);
   move_f.removeItemFromProfile(pmcData, pmcData.Inventory.questRaidItems);
   move_f.removeItemFromProfile(pmcData, pmcData.Inventory.questStashItems);
@@ -110,7 +110,7 @@ function setInventory(pmcData, profile) {
   }
   return pmcData;
 }
-function deleteInventory(pmcData, sessionID) {
+function deleteInventory (pmcData, sessionID) {
   let toDelete = [];
   for (let item of pmcData.Inventory.items) {
     // remove normal item
@@ -138,7 +138,7 @@ function deleteInventory(pmcData, sessionID) {
   pmcData.Inventory.fastPanel = {};
   return pmcData;
 }
-function getPlayerGear(items) {
+function getPlayerGear (items) {
   // Player Slots we care about
   const inventorySlots = [
     'FirstPrimaryWeapon',
@@ -179,17 +179,17 @@ function getPlayerGear(items) {
     // Add these new found items to our list of inventory items
     inventoryItems = [
       ...inventoryItems,
-      ...foundItems,
+      ...foundItems
     ];
     // Now find the children of these items
     newItems = foundItems;
   }
   return inventoryItems;
 }
-function getSecuredContainer(items) {
+function getSecuredContainer (items) {
   // Player Slots we care about
   const inventorySlots = [
-    'SecuredContainer',
+    'SecuredContainer'
   ];
   let inventoryItems = [];
   // Get an array of root player items
@@ -212,14 +212,14 @@ function getSecuredContainer(items) {
     // Add these new found items to our list of inventory items
     inventoryItems = [
       ...inventoryItems,
-      ...foundItems,
+      ...foundItems
     ];
     // Now find the children of these items
     newItems = foundItems;
   }
   return inventoryItems;
 }
-function saveProgress(offraidData, sessionID) {
+function saveProgress (offraidData, sessionID) {
   if (!global._database.gameplayConfig.inraid.saveLootEnabled) {
     return;
   }
@@ -229,19 +229,17 @@ function saveProgress(offraidData, sessionID) {
     if(fileIO.exist(db.locations[offraid_f.handler.players[sessionID].Location.toLowerCase()]))
       offlineWorksProperly = true;
   let insuranceEnabled = false;
-  if(!offlineWorksProperly){
+  if(!offlineWorksProperly) {
     logger.logWarning('insurance Disabled!! cause of varaible undefined or file not found. Check line 249-250 at src/classes/offraid.js');
   } else {
     let map = fileIO.readParsed(db.locations[offraid_f.handler.players[sessionID].Location.toLowerCase()]).base;
     insuranceEnabled = map.Insurance;
   }
-  if(typeof offraidData == 'undefined')
-  {
+  if(typeof offraidData == 'undefined') {
     logger.logError('offraidData' + offraidData);
     return;
   }
-  if(typeof offraidData.exit == 'undefined' || typeof offraidData.isPlayerScav == 'undefined' || typeof offraidData.profile == 'undefined')
-  {
+  if(typeof offraidData.exit == 'undefined' || typeof offraidData.isPlayerScav == 'undefined' || typeof offraidData.profile == 'undefined') {
     logger.logError('offraidData variables are empty... (exit, isPlayerScav, profile)');
     logger.logError(offraidData.exit);
     logger.logError(offraidData.isPlayerScav);

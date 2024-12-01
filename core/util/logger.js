@@ -22,13 +22,14 @@ const colorData = [
   }
 ];
 class Logger {
-  constructor() {
+  constructor () {
     let file = utility.getDate() + '_' + utility.getTime() + '.log';
     let folder = 'user/logs/';
     let filepath = folder + file;
     // create log folder
-    if (!fileIO.exist(folder)) { +
-    fileIO.mkDir(folder);
+    if (!fileIO.exist(folder)) {
+      +
+      fileIO.mkDir(folder);
     }
     // create log file
     if (!fileIO.exist(filepath)) {
@@ -36,7 +37,7 @@ class Logger {
     }
     this.fileStream = fileIO.createWriteStream(filepath);
   }
-  log(type, data, colorFront = '', colorBack = '') {
+  log (type, data, colorFront = '', colorBack = '') {
     let setColors = '';
     let colors = ['', ''];
     if (colorFront !== '') {
@@ -65,39 +66,39 @@ class Logger {
         console.log(data);
     }
     // write the logged data to the file
-    if(type == 'LogData'){
+    if(type == 'LogData') {
       this.fileStream.write(internal.util.format(data));
       this.fileStream.write(internal.util.format('\n'));//just new line
     } else {
       this.fileStream.write(internal.util.format(deltaTime+type+'-'+data+'\n'));
     }
   }
-  logError(text) {
+  logError (text) {
     this.log('[ERROR]', text, 'white', 'red');
   }
-  logWarning(text) {
+  logWarning (text) {
     this.log('[WARNING]', text, 'white', 'yellow');
   }
-  logSuccess(text) {
+  logSuccess (text) {
     this.log('[SUCCESS]', text, 'white', 'green');
   }
-  logDebug(text) {
+  logDebug (text) {
     this.log('[DEBUG]', text, 'black', 'white');
   }
-  logInfo(text) {
+  logInfo (text) {
     if(!serverConfig.hideInfoLogs)
       this.log('[INFO]', text, 'white', 'blue');
   }
-  logRequest(text, data = '') {
+  logRequest (text, data = '') {
     if(data == '')
       this.log('', text, 'cyan', 'black');
     else
       this.log(data, text, 'cyan', 'black');
   }
-  logData(data) {
+  logData (data) {
     this.log('LogData', data);
   }
-  throwErr(message, where, additional = ''){
+  throwErr (message, where, additional = '') {
     throw message + '\r\n' + where + ((additional!='')?`\r\n${additional}`:'');
   }
 }

@@ -10,15 +10,15 @@
 * 6 - FailRestartable
 * 7 - MarkedAsFailed
 */
-function getQuestsCache() {
+function getQuestsCache () {
   return fileIO.stringify(global._database.quests, true);
 }
 //Fix for new quests where previous quest already required to found in raid items as same ID
-function getQuestsForPlayer(url, info, sessionID){
+function getQuestsForPlayer (url, info, sessionID) {
   let _profile = profile_f.handler.getPmcProfile(sessionID);
   let quests = utility.wipeDepend(global._database.quests);
-  for(let quest of quests){
-    if(getQuestStatus(_profile, quest._id) == 'Success'){
+  for(let quest of quests) {
+    if(getQuestStatus(_profile, quest._id) == 'Success') {
       quest.conditions.AvailableForStart = [];
       quest.conditions.AvailableForFinish = [];
       quest.conditions.Fail = [];
@@ -26,7 +26,7 @@ function getQuestsForPlayer(url, info, sessionID){
   }
   return quests;
 }
-function getCachedQuest(qid) {
+function getCachedQuest (qid) {
   for (let quest of global._database.quests) {
     if (quest._id === qid) {
       return quest;
@@ -34,7 +34,7 @@ function getCachedQuest(qid) {
   }
   return null;
 }
-function processReward(reward) {
+function processReward (reward) {
   let rewardItems = [];
   let targets;
   let mods = [];
@@ -42,8 +42,7 @@ function processReward(reward) {
   for (let item of reward.items) {
     if (item._id === reward.target) {
       targets = helper_f.splitStack(item);
-    }
-    else {
+    } else {
       mods.push(item);
     }
   }
@@ -62,7 +61,7 @@ function processReward(reward) {
 * input: state, the quest status that holds the items (Started, Success, Fail)
 * output: an array of items with the correct maxStack
 */
-function getQuestRewardItems(quest, state) {
+function getQuestRewardItems (quest, state) {
   let questRewards = [];
   for (let reward of quest.rewards[state]) {
     if ('Item' === reward.type) {
@@ -71,7 +70,7 @@ function getQuestRewardItems(quest, state) {
   }
   return questRewards;
 }
-function acceptQuest(pmcData, body, sessionID) {
+function acceptQuest (pmcData, body, sessionID) {
   let state = 'Started';
   let found = false;
   // If the quest already exists, update its status
@@ -112,7 +111,7 @@ function acceptQuest(pmcData, body, sessionID) {
   dialogue_f.handler.addDialogueMessage(quest.traderId, messageContent, sessionID, questRewards);
   return item_f.handler.getOutput();
 }
-function completeQuest(pmcData, body, sessionID) {
+function completeQuest (pmcData, body, sessionID) {
   let state = 'Success';
   let intelCenterBonus = 0;//percentage of money reward
   //find if player has money reward boost
@@ -190,7 +189,7 @@ function completeQuest(pmcData, body, sessionID) {
   dialogue_f.handler.addDialogueMessage(questDb.traderId, messageContent, sessionID, questRewards);
   return item_f.handler.getOutput();
 }
-function handoverQuest(pmcData, body, sessionID) {
+function handoverQuest (pmcData, body, sessionID) {
   const quest = getCachedQuest(body.qid);
   let output = item_f.handler.getOutput();
   let types = ['HandoverItem', 'WeaponAssembly'];
@@ -226,8 +225,7 @@ function handoverQuest(pmcData, body, sessionID) {
       if (counter === value || counter > value) {
         break;
       }
-    }
-    else {
+    } else {
       // for weapon handover quests, remove the item and its children.
       let toRemove = helper_f.findAndReturnChildren(pmcData, itemHandover.id);
       let index = pmcData.Inventory.items.length;
@@ -249,7 +247,7 @@ function handoverQuest(pmcData, body, sessionID) {
   }
   return output;
 }
-function applyMoneyBoost(quest, moneyBoost) {
+function applyMoneyBoost (quest, moneyBoost) {
   for (let reward of quest.rewards.Success) {
     if (reward.type === 'Item') {
       if (helper_f.isMoneyTpl(reward.items[0]._tpl)) {
@@ -261,7 +259,7 @@ function applyMoneyBoost(quest, moneyBoost) {
 }
 /* Sets the item stack to value, or delete the item if value <= 0 */
 // TODO maybe merge this function and the one from customization
-function changeItemStack(pmcData, id, value, output) {
+function changeItemStack (pmcData, id, value, output) {
   for (let inventoryItem in pmcData.Inventory.items) {
     if (pmcData.Inventory.items[inventoryItem]._id === id) {
       if (value > 0) {
@@ -283,7 +281,7 @@ function changeItemStack(pmcData, id, value, output) {
     }
   }
 }
-function getQuestStatus(pmcData, questID) {
+function getQuestStatus (pmcData, questID) {
   for (let quest of pmcData.Quests) {
     if (quest.qid === questID) {
       return quest.status;

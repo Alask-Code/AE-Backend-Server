@@ -4,11 +4,10 @@ exports.cache = () => {
   }
   logger.logInfo('Caching: quests.json');
   let base = {'err': 0, 'errmsg': null, 'data': []};
-  for(let quest in db.quests){
+  for(let quest in db.quests) {
     let data = fileIO.readParsed(db.quests[quest]);
-    if(typeof data.length != 'undefined'){
-      for(let q in data)
-      {
+    if(typeof data.length != 'undefined') {
+      for(let q in data) {
         base.data.push(data[q]);
       }
     } else {

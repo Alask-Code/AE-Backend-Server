@@ -1,9 +1,9 @@
 'use strict';
-function getPath(sessionID) {
+function getPath (sessionID) {
   let path = db.user.profiles.userbuilds;
   return path.replace('__REPLACEME__', sessionID);
 }
-function getUserBuilds(sessionID) {
+function getUserBuilds (sessionID) {
   let userBuildsMap = fileIO.readParsed(getPath(sessionID));
   let userBuilds = [];
   for (let buildName in userBuildsMap) {
@@ -11,7 +11,7 @@ function getUserBuilds(sessionID) {
   }
   return userBuilds;
 }
-function SaveBuild(pmcData, body, sessionID) {
+function SaveBuild (pmcData, body, sessionID) {
   delete body.Action;
   body.id = utility.generateNewItemId();
   let output = item_f.handler.getOutput();
@@ -25,7 +25,7 @@ function SaveBuild(pmcData, body, sessionID) {
   output.builds.push(body);
   return output;
 }
-function RemoveBuild(pmcData, body, sessionID) {
+function RemoveBuild (pmcData, body, sessionID) {
   let savedBuilds = fileIO.readParsed(getPath(sessionID));
   for (let name in savedBuilds) {
     if (savedBuilds[name].id === body.id) {

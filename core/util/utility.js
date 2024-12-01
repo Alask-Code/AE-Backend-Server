@@ -36,7 +36,7 @@ exports.getRandomIntEx = (max) => {
 };
 // getDirList TODO: OBSOLETE
 exports.getDirList = (path) => {
-  return fileIO.readDir(path).filter(function(file) {
+  return fileIO.readDir(path).filter(function (file) {
     return fileIO.statSync(path + '/' + file).isDirectory();
   });
 };
@@ -109,7 +109,7 @@ const { v4: uuidv4 } = require('uuid');
 exports.generateNewId = (prefix = '', useOld = false) => {
   let getTime = new Date();
   let retVal = '';
-  if(useOld){
+  if(useOld) {
     retVal = prefix;
     retVal += getTime.getMonth().toString();
     retVal += getTime.getDate().toString();
@@ -128,8 +128,12 @@ exports.secondsToTime = (timestamp) =>{
   let hours = Math.floor(timestamp / 60 / 60);
   let minutes = Math.floor(timestamp / 60) - (hours * 60);
   let seconds = timestamp % 60;
-  if( minutes < 10 ){ minutes = '0' + minutes;}
-  if( seconds < 10 ){ seconds = '0' + seconds;}
+  if( minutes < 10 ) {
+    minutes = '0' + minutes;
+  }
+  if( seconds < 10 ) {
+    seconds = '0' + seconds;
+  }
   return hours + 'h' + minutes + ':' + seconds;
 };
 // isUndefined
@@ -148,20 +152,16 @@ exports.generateInventoryID = (profile) => {
   let inventoryItemHash = {};
   let inventoryId = '';
   // Generate inventoryItem list
-  for (let item of profile.Inventory.items)
-  {
+  for (let item of profile.Inventory.items) {
     inventoryItemHash[item._id] = item;
-    if (item._tpl === '55d7217a4bdc2d86028b456d')
-    {
+    if (item._tpl === '55d7217a4bdc2d86028b456d') {
       inventoryId = item._id;
       continue;
     }
-    if (!('parentId' in item))
-    {
+    if (!('parentId' in item)) {
       continue;
     }
-    if (!(item.parentId in itemsByParentHash))
-    {
+    if (!(item.parentId in itemsByParentHash)) {
       itemsByParentHash[item.parentId] = [];
     }
     itemsByParentHash[item.parentId].push(item);
@@ -171,19 +171,15 @@ exports.generateInventoryID = (profile) => {
   inventoryItemHash[inventoryId]._id = newInventoryId;
   profile.Inventory.equipment = newInventoryId;
   // update inventoryItem id
-  if (inventoryId in itemsByParentHash)
-  {
-    for (let item of itemsByParentHash[inventoryId])
-    {
+  if (inventoryId in itemsByParentHash) {
+    for (let item of itemsByParentHash[inventoryId]) {
       item.parentId = newInventoryId;
     }
   }
   return profile;
 };
-exports.splitStack = (item) =>
-{
-  if (!('upd' in item) || !('StackObjectsCount' in item.upd))
-  {
+exports.splitStack = (item) => {
+  if (!('upd' in item) || !('StackObjectsCount' in item.upd)) {
     return [item];
   }
   let maxStack = global._database.items[item._tpl]._props.StackMaxSize;
@@ -191,13 +187,11 @@ exports.splitStack = (item) =>
   let stacks = [];
   // If the current count is already equal or less than the max
   // then just return the item as is.
-  if (count <= maxStack)
-  {
+  if (count <= maxStack) {
     stacks.push(utility.wipeDepend(item));
     return stacks;
   }
-  while (count)
-  {
+  while (count) {
     let amount = Math.min(count, maxStack);
     let newStack = utility.wipeDepend(item);
     newStack._id = utility.generateNewItemId();

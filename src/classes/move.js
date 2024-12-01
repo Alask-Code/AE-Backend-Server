@@ -1,6 +1,6 @@
 'use strict';
 /* Based on the item action, determine whose inventories we should be looking at for from and to. */
-function getOwnerInventoryItems(body, sessionID) {
+function getOwnerInventoryItems (body, sessionID) {
   let isSameInventory = false;
   let pmcItems = profile_f.handler.getPmcProfile(sessionID).Inventory.items;
   let scavData = profile_f.handler.getScavProfile(sessionID);
@@ -38,7 +38,7 @@ function getOwnerInventoryItems(body, sessionID) {
 * transfers items from one profile to another if fromOwner/toOwner is set in the body.
 * otherwise, move is contained within the same profile_f.
 * */
-function moveItem(pmcData, body, sessionID) {
+function moveItem (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   //console.log(body);
   //console.log(global._database.items[pmcData.Inventory.items.find(item => item._id == body.item)._tpl]);
@@ -91,7 +91,7 @@ module.exports.applyInventoryChanges = (pmcData, body, sessionID) => {
 * toProfileData: Profile of the destination.
 * body: Move request
 */
-function moveItemToProfile(fromItems, toItems, body) {
+function moveItemToProfile (fromItems, toItems, body) {
   handleCartridges(fromItems, body);
   let idsToMove = helper_f.findAndReturnChildrenByItems(fromItems, body.item);
   for (let itemId of idsToMove) {
@@ -118,7 +118,7 @@ function moveItemToProfile(fromItems, toItems, body) {
 * items: Items
 * body: Move request
 */
-function moveItemInternal(items, body) {
+function moveItemInternal (items, body) {
   handleCartridges(items, body);
   for (let item of items) {
     if (item._id && item._id === body.item) {
@@ -139,7 +139,7 @@ function moveItemInternal(items, body) {
 * items: Items
 * body: Move request
 */
-function handleCartridges(items, body) {
+function handleCartridges (items, body) {
   // -> Move item to diffrent place - counts with equiping filling magazine etc
   if (body.to.container === 'cartridges') {
     let tmp_counter = 0;
@@ -152,7 +152,7 @@ function handleCartridges(items, body) {
   }
 }
 /* Remove item of itemId and all of its descendants from profile. */
-function removeItemFromProfile(profileData, itemId, output = null) {
+function removeItemFromProfile (profileData, itemId, output = null) {
   // get items to remove
   let ids_toremove = helper_f.findAndReturnChildren(profileData, itemId);
   //remove one by one all related items and itself
@@ -171,7 +171,7 @@ function removeItemFromProfile(profileData, itemId, output = null) {
 * Remove Item
 * Deep tree item deletion / Delets main item and all sub items with sub items ... and so on.
 */
-function removeItem(profileData, body, output, sessionID) {
+function removeItem (profileData, body, output, sessionID) {
   let toDo = [body];
   //Find the item and all of it's relates
   if (toDo[0] === undefined || toDo[0] === null || toDo[0] === 'undefined') {
@@ -181,14 +181,14 @@ function removeItem(profileData, body, output, sessionID) {
   removeItemFromProfile(profileData, toDo[0], output);
   return output;
 }
-function discardItem(pmcData, body, sessionID) {
+function discardItem (pmcData, body, sessionID) {
   insurance_f.handler.remove(pmcData, body.item, sessionID);
   return removeItem(pmcData, body.item, item_f.handler.getOutput(), sessionID);
 }
 /* Split Item
 * spliting 1 item into 2 separate items ...
 * */
-function splitItem(pmcData, body, sessionID) {
+function splitItem (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   let location = body.container.location;
   let inventoryItems = getOwnerInventoryItems(body, sessionID);
@@ -231,7 +231,7 @@ function splitItem(pmcData, body, sessionID) {
 /* Merge Item
 * merges 2 items into one, deletes item from body.item and adding number of stacks into body.with
 * */
-function mergeItem(pmcData, body, sessionID) {
+function mergeItem (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   let inventoryItems = getOwnerInventoryItems(body, sessionID);
   for (let key in inventoryItems.to) {
@@ -267,7 +267,7 @@ function mergeItem(pmcData, body, sessionID) {
 /* Transfer item
 * Used to take items from scav inventory into stash or to insert ammo into mags (shotgun ones) and reloading weapon by clicking "Reload"
 * */
-function transferItem(pmcData, body, sessionID) {
+function transferItem (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   let itemFrom = null, itemTo = null;
   for (let iterItem of pmcData.Inventory.items) {
@@ -304,7 +304,7 @@ function transferItem(pmcData, body, sessionID) {
 /* Swap Item
 * its used for "reload" if you have weapon in hands and magazine is somewhere else in rig or backpack in equipment
 * */
-function swapItem(pmcData, body, sessionID) {
+function swapItem (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   for (let iterItem of pmcData.Inventory.items) {
     if (iterItem._id === body.item) {
@@ -323,28 +323,22 @@ function swapItem(pmcData, body, sessionID) {
 /* Give Item
 * its used for "add" item like gifts etc.
 * */
-function addItem(pmcData, body, output, sessionID, foundInRaid = false) {
+function addItem (pmcData, body, output, sessionID, foundInRaid = false) {
   // const fenceID = "579dc571d53a0658a154fbec";
   let itemLib = [];
   let itemsToAdd = [];
-  if (typeof body.items == 'undefined'){
+  if (typeof body.items == 'undefined') {
     body.items = [{'item_id': body.item_id, 'count': body.count}];
   }
-  for (let baseItem of body.items)
-  {
-    if (baseItem.item_id in global._database.globals.ItemPresets)
-    {
+  for (let baseItem of body.items) {
+    if (baseItem.item_id in global._database.globals.ItemPresets) {
       const presetItems = helper_f.clone(global._database.globals.ItemPresets[baseItem.item_id]._items);
       itemLib.push(...presetItems);
       baseItem.isPreset = true;
       baseItem.item_id = presetItems[0]._id;
-    }
-    else if (helper_f.isMoneyTpl(baseItem.item_id))
-    {
+    } else if (helper_f.isMoneyTpl(baseItem.item_id)) {
       itemLib.push({ _id: baseItem.item_id, _tpl: baseItem.item_id });
-    }
-    else
-    {
+    } else {
       // Only grab the relevant trader items and add unique values
       let isBuyingFromFence = false;
       if(body.tid === '579dc571d53a0658a154fbec')
@@ -354,39 +348,29 @@ function addItem(pmcData, body, output, sessionID, foundInRaid = false) {
       const toAdd = relevantItems.filter(traderItem => !itemLib.some(item => traderItem._id === item._id));
       itemLib.push(...toAdd);
     }
-    for (let item of itemLib)
-    {
-      if (item._id === baseItem.item_id)
-      {
+    for (let item of itemLib) {
+      if (item._id === baseItem.item_id) {
         const tmpItem = helper_f.getItem(item._tpl)[1];
         const itemToAdd = { itemRef: item, count: baseItem.count, isPreset: baseItem.isPreset };
         let MaxStacks = 1;
         // split stacks if the size is higher than allowed by StackMaxSize
-        if (baseItem.count > tmpItem._props.StackMaxSize)
-        {
+        if (baseItem.count > tmpItem._props.StackMaxSize) {
           let count = baseItem.count;
           let calc = baseItem.count - (Math.floor(baseItem.count / tmpItem._props.StackMaxSize) * tmpItem._props.StackMaxSize);
           MaxStacks = (calc > 0) ? MaxStacks + Math.floor(count / tmpItem._props.StackMaxSize) : Math.floor(count / tmpItem._props.StackMaxSize);
-          for (let sv = 0; sv < MaxStacks; sv++)
-          {
-            if (count > 0)
-            {
+          for (let sv = 0; sv < MaxStacks; sv++) {
+            if (count > 0) {
               let newItemToAdd = helper_f.clone(itemToAdd);
-              if (count > tmpItem._props.StackMaxSize)
-              {
+              if (count > tmpItem._props.StackMaxSize) {
                 count = count - tmpItem._props.StackMaxSize;
                 newItemToAdd.count = tmpItem._props.StackMaxSize;
-              }
-              else
-              {
+              } else {
                 newItemToAdd.count = count;
               }
               itemsToAdd.push(newItemToAdd);
             }
           }
-        }
-        else
-        {
+        } else {
           itemsToAdd.push(itemToAdd);
         }
         // stacks prepared
@@ -395,66 +379,50 @@ function addItem(pmcData, body, output, sessionID, foundInRaid = false) {
   }
   // Find an empty slot in stash for each of the items being added
   let StashFS_2D = helper_f.getPlayerStashSlotMap(sessionID, pmcData);
-  for (let itemToAdd of itemsToAdd)
-  {
+  for (let itemToAdd of itemsToAdd) {
     let itemSize = helper_f.getItemSize(itemToAdd.itemRef._tpl, itemToAdd.itemRef._id, itemLib);
     let findSlotResult = helper_f.findSlotForItem(StashFS_2D, itemSize[0], itemSize[1]);
-    if (findSlotResult.success)
-    {
+    if (findSlotResult.success) {
       /* Fill in the StashFS_2D with an imaginary item, to simulate it already being added
 			* so the next item to search for a free slot won't find the same one */
       let itemSizeX = findSlotResult.rotation ? itemSize[1] : itemSize[0];
       let itemSizeY = findSlotResult.rotation ? itemSize[0] : itemSize[1];
-      try
-      {
+      try {
         StashFS_2D = helper_f.fillContainerMapWithItem(StashFS_2D, findSlotResult.x, findSlotResult.y, itemSizeX, itemSizeY);
-      }
-      catch (err)
-      {
+      } catch (err) {
         logger.logError('fillContainerMapWithItem returned with an error' + typeof err === 'string' ? ` -> ${err}` : '');
         return helper_f.appendErrorToOutput(output, 'Not enough stash space');
       }
       itemToAdd.location = { x: findSlotResult.x, y: findSlotResult.y, rotation: findSlotResult.rotation };
-    }
-    else
-    {
+    } else {
       return helper_f.appendErrorToOutput(output, 'Not enough stash space');
     }
   }
   // We've succesfully found a slot for each item, let's execute the callback and see if it fails (ex. payMoney might fail)
-  try
-  {
-    if (typeof callback === 'function')
-    {
+  try {
+    if (typeof callback === 'function') {
       callback();
     }
-  }
-  catch (err)
-  {
+  } catch (err) {
     let message = typeof err === 'string' ? err : 'An unknown error occurred';
     return helper_f.appendErrorToOutput(output, message);
   }
-  for (let itemToAdd of itemsToAdd)
-  {
+  for (let itemToAdd of itemsToAdd) {
     let newItem = utility.generateNewItemId();
     let toDo = [[itemToAdd.itemRef._id, newItem]];
     let upd = {'StackObjectsCount': itemToAdd.count};
     //if it is from ItemPreset, load preset's upd data too.
-    if (itemToAdd.isPreset)
-    {
-      for (let updID in itemToAdd.itemRef.upd)
-      {
+    if (itemToAdd.isPreset) {
+      for (let updID in itemToAdd.itemRef.upd) {
         upd[updID] = itemToAdd.itemRef.upd[updID];
       }
     }
     // in case people want all items to be marked as found in raid
-    if (global._database.gameplayConfig.trading.buyItemsMarkedFound)
-    {
+    if (global._database.gameplayConfig.trading.buyItemsMarkedFound) {
       foundInRaid = true;
     }
     // hideout items need to be marked as found in raid
-    if (foundInRaid)
-    {
+    if (foundInRaid) {
       upd['SpawnedInSession'] = true;
     }
     output.items.new.push({
@@ -477,16 +445,14 @@ function addItem(pmcData, body, output, sessionID, foundInRaid = false) {
     // Damaged ammo box are not loaded.
     const itemInfo = helper_f.getItem(itemToAdd.itemRef._tpl)[1];
     let ammoBoxInfo = itemInfo._props.StackSlots;
-    if (ammoBoxInfo !== undefined && itemInfo._name.indexOf('_damaged') < 0)
-    {
+    if (ammoBoxInfo !== undefined && itemInfo._name.indexOf('_damaged') < 0) {
       // Cartridge info seems to be an array of size 1 for some reason... (See AmmoBox constructor in client code)
       let maxCount = ammoBoxInfo[0]._max_count;
       let ammoTmplId = ammoBoxInfo[0]._props.filters[0].Filter[0];
       let ammoStackMaxSize = helper_f.getItem(ammoTmplId)[1]._props.StackMaxSize;
       let ammos = [];
       let location = 0;
-      while (maxCount > 0)
-      {
+      while (maxCount > 0) {
         let ammoStackSize = maxCount <= ammoStackMaxSize ? maxCount : ammoStackMaxSize;
         ammos.push({
           '_id': utility.generateNewItemId(),
@@ -501,25 +467,19 @@ function addItem(pmcData, body, output, sessionID, foundInRaid = false) {
       }
       [output.items.new, pmcData.Inventory.items].forEach(x => x.push.apply(x, ammos));
     }
-    while (toDo.length > 0)
-    {
-      for (let tmpKey in itemLib)
-      {
-        if (itemLib[tmpKey].parentId && itemLib[tmpKey].parentId === toDo[0][0])
-        {
+    while (toDo.length > 0) {
+      for (let tmpKey in itemLib) {
+        if (itemLib[tmpKey].parentId && itemLib[tmpKey].parentId === toDo[0][0]) {
           newItem = utility.generateNewItemId();
           let SlotID = itemLib[tmpKey].slotId;
           //if it is from ItemPreset, load preset's upd data too.
-          if (itemToAdd.isPreset)
-          {
+          if (itemToAdd.isPreset) {
             upd = {'StackObjectsCount': itemToAdd.count};
-            for (let updID in itemLib[tmpKey].upd)
-            {
+            for (let updID in itemLib[tmpKey].upd) {
               upd[updID] = itemLib[tmpKey].upd[updID];
             }
           }
-          if (SlotID === 'hideout')
-          {
+          if (SlotID === 'hideout') {
             output.items.new.push({
               '_id': newItem,
               '_tpl': itemLib[tmpKey]._tpl,
@@ -536,9 +496,7 @@ function addItem(pmcData, body, output, sessionID, foundInRaid = false) {
               'location': {'x': itemToAdd.location.x, 'y': itemToAdd.location.y, 'r': 'Horizontal'},
               'upd': upd
             });
-          }
-          else
-          {
+          } else {
             output.items.new.push({
               '_id': newItem,
               '_tpl': itemLib[tmpKey]._tpl,

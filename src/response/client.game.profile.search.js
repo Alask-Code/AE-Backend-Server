@@ -1,7 +1,7 @@
 exports.execute = (url, info, sessionID) => {
   let ids = Object.keys(account_f.handler.accounts).filter(x => x != sessionID);
   let users = [];
-  for(let i in ids){
+  for(let i in ids) {
     let id = ids[i];
     if(!fileIO.exist(`user/profiles/${id}/character.json`)) continue;
     let character = fileIO.readParsed(`user/profiles/${id}/character.json`);

@@ -4,25 +4,25 @@
 * request from client per session.
 */
 class NotifierService {
-  constructor() {
+  constructor () {
     this.messageQueue = {};
   }
   /* Get messageQueue for a particular sessionID. */
-  getMessageQueue(sessionID) {
+  getMessageQueue (sessionID) {
     if (!this.hasMessageQueue(sessionID)) {
       return [];
     }
     return this.messageQueue[sessionID];
   }
   /* Pop first message from the queue for a particular sessionID and return the message. */
-  popMessageFromQueue(sessionID) {
+  popMessageFromQueue (sessionID) {
     if (!this.hasMessageQueue(sessionID)) {
       return null;
     }
     return this.messageQueue[sessionID].splice(0, 1)[0];
   }
   /* Add notificationMessage to the messageQueue for a particular sessionID. */
-  addToMessageQueue(notificationMessage, sessionID) {
+  addToMessageQueue (notificationMessage, sessionID) {
     if (!this.hasMessageQueue(sessionID)) {
       this.messageQueue[sessionID] = [notificationMessage];
       return;
@@ -30,23 +30,23 @@ class NotifierService {
     this.messageQueue[sessionID].push(notificationMessage);
   }
   /* Checks whether we already have a message queue created for a particular sessionID. */
-  hasMessageQueue(sessionID) {
+  hasMessageQueue (sessionID) {
     return sessionID in this.messageQueue;
   }
   /* Checks whether a particular sessionID has notifications waiting to be processed. */
-  hasMessagesInQueue(sessionID) {
+  hasMessagesInQueue (sessionID) {
     if (!this.hasMessageQueue(sessionID)) {
       return false;
     }
     return this.messageQueue[sessionID].length > 0;
   }
-  async notificationWaitAsync(resp, sessionID) {
+  async notificationWaitAsync (resp, sessionID) {
     await new Promise(resolve => {
       // Timeout after 15 seconds even if no messages have been received to keep the poll requests going.
-      setTimeout(function() {
+      setTimeout(function () {
         resolve();
       }, 15000);
-      setInterval(function() {
+      setInterval(function () {
         if (notifier_f.handler.hasMessagesInQueue(sessionID)) {
           resolve();
         }
@@ -67,7 +67,7 @@ class NotifierService {
   }
 }
 /* Creates a new notification of type "new_message" with the specified dialogueMessage object. */
-function createNewMessageNotification(dialogueMessage) {
+function createNewMessageNotification (dialogueMessage) {
   return {type: 'new_message', eventId: dialogueMessage._id, data : {'dialogId': dialogueMessage.uid, 'message': dialogueMessage}};
 }
 module.exports.handler = new NotifierService();

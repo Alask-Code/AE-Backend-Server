@@ -40,7 +40,7 @@ exports.cache = () => {
   response.offers = offers;
   fileIO.write('user/cache/ragfair_offers.json', response, true, false);
 };
-function loadCache(itemsToSell, barter_scheme, loyal_level, trader, counter = 911) {
+function loadCache (itemsToSell, barter_scheme, loyal_level, trader, counter = 911) {
   let offers = [];
   let offerBase = fileIO.readParsed(db.base.fleaOffer);
   let traderObj = fileIO.readParsed(db.traders[trader].base);
@@ -62,7 +62,7 @@ function loadCache(itemsToSell, barter_scheme, loyal_level, trader, counter = 91
   return offers;
 }
 //find childs of the item in a given assort (weapons pars for example, need recursive loop function)
-function findChildren(itemIdToFind, assort) {
+function findChildren (itemIdToFind, assort) {
   let Array = [];
   for (let itemFromAssort of assort) {
     if (itemFromAssort.parentId == itemIdToFind) {

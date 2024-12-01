@@ -4,14 +4,14 @@
 * operations also write to disk.*
 */
 class ProfileServer {
-  constructor() {
+  constructor () {
     this.profiles = {};
   }
-  initializeProfile(sessionID) {
+  initializeProfile (sessionID) {
     this.profiles[sessionID] = {};
     this.loadProfilesFromDisk(sessionID);
   }
-  loadProfilesFromDisk(sessionID) {
+  loadProfilesFromDisk (sessionID) {
     if(typeof sessionID == 'undefined')
       logger.throwErr('Session ID is undefined', '~/src/classes/profile.js | 19');
     try {
@@ -26,10 +26,10 @@ class ProfileServer {
     }
     logger.logSuccess(`Loaded profile for AID ${sessionID} successfully.`);
   }
-  getOpenSessions() {
+  getOpenSessions () {
     return Object.keys(this.profiles);
   }
-  saveToDisk(sessionID) {
+  saveToDisk (sessionID) {
     if ('pmc' in this.profiles[sessionID]) {
       fileIO.write(getPmcPath(sessionID), this.profiles[sessionID]['pmc']);
     }
@@ -39,7 +39,7 @@ class ProfileServer {
     * If we don't have a profile for this sessionID yet, then load it and other related data
     * from disk.
     */
-  getProfile(sessionID, type) {
+  getProfile (sessionID, type) {
     if (!(sessionID in this.profiles)) {
       this.initializeProfile(sessionID);
       dialogue_f.handler.initializeDialogue(sessionID);
@@ -48,19 +48,19 @@ class ProfileServer {
     }
     return this.profiles[sessionID][type];
   }
-  getProfileById(ID, type) {
+  getProfileById (ID, type) {
     return fileIO.readParsed(`user/profiles/${ID}/character.json`);
   }
-  getPmcProfile(sessionID) {
+  getPmcProfile (sessionID) {
     return this.getProfile(sessionID, 'pmc');
   }
-  getScavProfile(sessionID) {
+  getScavProfile (sessionID) {
     return this.getProfile(sessionID, 'scav');
   }
-  setScavProfile(sessionID, scavData) {
+  setScavProfile (sessionID, scavData) {
     this.profiles[sessionID]['scav'] = scavData;
   }
-  getCompleteProfile(sessionID) {
+  getCompleteProfile (sessionID) {
     let output = [];
     if (!account_f.handler.isWiped(sessionID)) {
       output.push(profile_f.handler.getPmcProfile(sessionID));
@@ -68,7 +68,7 @@ class ProfileServer {
     }
     return output;
   }
-  createProfile(info, sessionID) {
+  createProfile (info, sessionID) {
     let account = account_f.handler.find(sessionID);
     let folder = account_f.getPath(account.id);
     let ChoosedSide = info.side.toLowerCase();
@@ -118,7 +118,7 @@ class ProfileServer {
     // don't wipe profile again
     account_f.handler.setWipe(account.id, false);
   }
-  generateScav(sessionID) {
+  generateScav (sessionID) {
     let pmcData = this.getPmcProfile(sessionID);
     let scavData = bots_f.generatePlayerScav();
     scavData._id = pmcData.savage;
@@ -140,7 +140,7 @@ class ProfileServer {
     this.profiles[sessionID]['scav'] = scavData;
     return scavData;
   }
-  validateNickname(info, sessionID) {
+  validateNickname (info, sessionID) {
     if (info.nickname.length < 3) {
       return 'tooshort';
     }
@@ -149,7 +149,7 @@ class ProfileServer {
     }
     return 'OK';
   }
-  changeNickname(info, sessionID) {
+  changeNickname (info, sessionID) {
     let output = this.validateNickname(info, sessionID);
     if (output === 'OK') {
       let pmcData = this.getPmcProfile(sessionID);
@@ -158,16 +158,16 @@ class ProfileServer {
     }
     return output;
   }
-  changeVoice(info, sessionID) {
+  changeVoice (info, sessionID) {
     let pmcData = this.getPmcProfile(sessionID);
     pmcData.Info.Voice = info.voice;
   }
 }
-function getPmcPath(sessionID) {
+function getPmcPath (sessionID) {
   let pmcPath = db.user.profiles.character;
   return pmcPath.replace('__REPLACEME__', sessionID);
 }
-function getStashType(sessionID) {
+function getStashType (sessionID) {
   let pmcData = profile_f.handler.getPmcProfile(sessionID);
   for (let item of pmcData.Inventory.items) {
     if (item._id === pmcData.Inventory.stash) {
@@ -177,7 +177,7 @@ function getStashType(sessionID) {
   logger.logError(`No stash found where stash ID is: ${pmcData.Inventory.stash}`);
   return '';
 }
-function calculateLevel(pmcData) {
+function calculateLevel (pmcData) {
   let exp = 0;
   for (let level in global._database.globals.config.exp.level.exp_table) {
     if (pmcData.Info.Experience < exp) {

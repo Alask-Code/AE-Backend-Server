@@ -1,6 +1,6 @@
-function DetectInput(data, name){
+function DetectInput (data, name) {
   //console.log(typeof data + " " + data)
-  if(data == 'true' || data == 'false' || data == true || data == false){
+  if(data == 'true' || data == 'false' || data == true || data == false) {
     let SelectedOption = (data === 'true' || data === true);
     return '<select name=\'' + name + '\'>' +
 		'<option value=\'true\' '+((SelectedOption)?'selected':'')+'>true</option>' +
@@ -16,7 +16,7 @@ function DetectInput(data, name){
       return '<input type=\'number\' size=\'10\' name=\'' + name + '\' value=\'' + data + '\'/>';
   return data;
 }
-function PageHeader(content){
+function PageHeader (content) {
   return '<html><head><title>JustEmuTarkov</title><link rel="stylesheet" id="style" href="style.css" type="text/css" media="all"><style>h2{font-size:16px;padding:3px 0 0 10px;margin:0;} h3{font-size:14px;padding:3px 0 0 15px;margin:0;} p{font-size:12px;padding:3px 0 0 25px;margin:0;} body{color:#fff;background:#000} table{border-bottom:1px solid #aaa;} .right{text-align:right;}</style></head><body>'+content+'</body></html>';
 }
 module.exports.RenderHomePage = () => {
@@ -51,14 +51,12 @@ module.exports.RenderHomePage = () => {
 module.exports.RenderGameplayConfigPage = (url_return) => {
   let data = fileIO.readParsed(db.user.configs.gameplay);
   let html = '<form action="'+url_return+'" method="post" class="form"><div class="container-full"><div class="row">';
-  for(let category in data){
+  for(let category in data) {
     html += '<div class="four columns"><ul><li><h2>' + category + '</h2></li>';
-    for (let sub in data[category])
-    {
-      if(typeof data[category][sub] == 'object'){
+    for (let sub in data[category]) {
+      if(typeof data[category][sub] == 'object') {
         html += '<li><h3>' + sub + '</h3></li>';
-        for(let subSub in data[category][sub])
-        {
+        for(let subSub in data[category][sub]) {
           html += '<li><label for=\''+subSub+'\'>' + subSub + '</label>' + DetectInput(data[category][sub][subSub],subSub) + '<span></span></li>';
         }
       } else {
@@ -74,18 +72,15 @@ module.exports.RenderGameplayConfigPage = (url_return) => {
 module.exports.RenderAccountsConfigPage = (url_return) => {
   let data = fileIO.readParsed(db.user.configs.accounts);
   let html = '<div class="container-full"><div class="row">';
-  for(let category in data){
+  for(let category in data) {
     html += '<div class="four columns"><form action="'+url_return+'" method="post" class="form"><ul><li><h2>' + category + '</h2></li>';
-    for (let sub in data[category])
-    {
-      if(typeof data[category][sub] == 'object'){
+    for (let sub in data[category]) {
+      if(typeof data[category][sub] == 'object') {
         html += '<li><h3>' + sub + '</h3></li>';
-        for(let subSub in data[category][sub])
-        {
+        for(let subSub in data[category][sub]) {
           if(subSub != 'id' && subSub != 'nickname')
             html += '<li><label for=\''+subSub+'\'>' + subSub + '</label>' + DetectInput(data[category][sub][subSub],subSub) + '<span></span></li>';
-          else
-          {
+          else {
             html += '<li><label for=\''+subSub+'\'>' + subSub + '</label>' + data[category][sub][subSub] + '<span></span></li>';
           }
         }
@@ -105,16 +100,14 @@ module.exports.RenderAccountsConfigPage = (url_return) => {
 module.exports.RenderServerConfigPage = (url_return) => {
   let data = fileIO.readParsed(db.user.configs.server);
   let html = '<form action="'+url_return+'" method="post" class="form"><div class="container-full"><div class="row">';
-  for(let category in data){
+  for(let category in data) {
     html += '<div class="four columns"><ul>';
-    if(typeof data[category] == 'object'){
+    if(typeof data[category] == 'object') {
       html += '<li><h2>' + category + '</h2></li>';
-      for (let sub in data[category])
-      {
-        if(typeof data[category][sub] == 'object'){
+      for (let sub in data[category]) {
+        if(typeof data[category][sub] == 'object') {
           html += '<li><h3>' + sub + '</h3></li>';
-          for(let subSub in data[category][sub])
-          {
+          for(let subSub in data[category][sub]) {
             html += '<li><label for=\''+subSub+'\'>' + subSub + '</label>' + DetectInput(data[category][sub][subSub],subSub) + '<span></span></li>';
           }
         } else {
@@ -133,8 +126,7 @@ module.exports.RenderServerConfigPage = (url_return) => {
 module.exports.RenderModsConfigPage = (url_return) => {
   let data = fileIO.readParsed(global.internal.resolve('user/configs/mods.json'));
   let html = '<form action="'+url_return+'" method="post" class="form"><div class="container"><div class="row">';
-  for(let category in data)
-  {
+  for(let category in data) {
     html += '<div class="twelwe columns" style="text-align:center;margin:0;"><ul><li><h2>' + data[category].author + ' - ' + data[category].name + ' - ' + data[category].version + '</h2></li>';
     html += '<li><label for=\'enabled\'>Enabled</label>' + DetectInput(data[category].enabled, data[category].author + '-' + data[category].name + '-' + data[category].version) + '<span></span></li>';
     html += '</ul></div>';
@@ -154,21 +146,21 @@ module.exports.renderPage = () => {
   html = PageHeader(html); // this will render footer and header + some styles title of the page etc.
   return html;
 };
-function OutputConvert(data){
+function OutputConvert (data) {
   // its not nececerly needed but its ok.
-  if((data.match(/./g) || []).length > 1){
+  if((data.match(/./g) || []).length > 1) {
     return data; // this is IP man...
   }
-  if(data.match(/[0-9]/g)){
+  if(data.match(/[0-9]/g)) {
     // its a number
-    if(data.match(/[.]/)){
+    if(data.match(/[.]/)) {
       // this one is float point one
       return parseFloat(data);
     } else {
       return parseInt(data, 10);
     }
   }
-  if(data.match(/^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$/g)){
+  if(data.match(/^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$/g)) {
     return (data.toLowerCase() === 'true');
   }
   //if(typeof data === "string")
@@ -177,10 +169,9 @@ function OutputConvert(data){
 module.exports.processSaveServerData = (data, fileName) => {
   if(JSON.stringify(data) == '{}') return; // if its empty return
   let _data = fileIO.readParsed(fileName);
-  for(let category in _data)
-  {
-    if(typeof _data[category] == 'object'){
-      for(let name in _data[category]){
+  for(let category in _data) {
+    if(typeof _data[category] == 'object') {
+      for(let name in _data[category]) {
         _data[category][name] = OutputConvert(data[name]);
         if(typeof _data[category][name] == 'string')
           _data[category][name] = _data[category][name].replace(/[+]/g, ' ');
@@ -194,13 +185,10 @@ module.exports.processSaveServerData = (data, fileName) => {
 module.exports.processSaveData = (data, fileName) => {
   if(JSON.stringify(data) == '{}') return; // if its empty return
   let _data = fileIO.readParsed(fileName);
-  for(let category in _data)
-  {
-    for (let sub of _data[category])
-    {
-      if(typeof _data[category][sub] == 'object'){
-        for(let subSub in _data[category][sub])
-        {
+  for(let category in _data) {
+    for (let sub of _data[category]) {
+      if(typeof _data[category][sub] == 'object') {
+        for(let subSub in _data[category][sub]) {
           let dataToSave = OutputConvert(data[subSub]);
           _data[category][sub][subSub] = dataToSave;
         }
@@ -225,10 +213,9 @@ module.exports.processSaveAccountsData = (data, fileName) => {
 module.exports.processSaveModData = (data, fileName) => {
   if(JSON.stringify(data) == '{}') return; // if its empty return
   let _data = fileIO.readParsed(fileName);
-  for(let modToChange in data)
-  {
-    for(let mod of _data){
-      if(`${mod.author}-${mod.name}-${mod.version}` == modToChange){
+  for(let modToChange in data) {
+    for(let mod of _data) {
+      if(`${mod.author}-${mod.name}-${mod.version}` == modToChange) {
         mod.enabled = data[modToChange];
       }
     }

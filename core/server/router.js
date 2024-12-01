@@ -1,13 +1,13 @@
 'use strict';
 class Router {
-  constructor() {
+  constructor () {
     this.createStaticResponses();
     this.createDynamicResponses();
   }
-  createStaticResponses(){
+  createStaticResponses () {
     this.staticRoutes = {};
     let getStaticRoute = fileIO.readDir('./src/response');
-    for(let file of getStaticRoute){
+    for(let file of getStaticRoute) {
       if(file.indexOf('_') == 0) continue;
       if(!file.includes('.js')) continue;
       let route = '/' + file.replace('.js', '').replace(/\./g, '/');
@@ -16,10 +16,10 @@ class Router {
     }
     logger.logSuccess('Create: Static Response Callbacks');
   }
-  createDynamicResponses(){
+  createDynamicResponses () {
     this.dynamicRoutes = {};
     let getDynamicRoute = fileIO.readDir('./src/response/dynamic');
-    for(let file of getDynamicRoute){
+    for(let file of getDynamicRoute) {
       if(!file.includes('.js')) continue;
       let route = file.replace('.js', '');
       if(route == 'jpg' || route == 'png' || route == 'bundle')
@@ -28,7 +28,7 @@ class Router {
         route = '?' + route;
       else
         route = '/' + route.replace(/\./g, '/');
-      if(route.includes('getTrader')){
+      if(route.includes('getTrader')) {
         route = route + '/';
       }
       let callback = require('../../src/response/dynamic/' + file);
@@ -42,16 +42,16 @@ class Router {
     this.dynamicRoutes = new_obj;
     logger.logSuccess('Create: Dynamic Response Callbacks');
   }
-  getResponse(req, body, sessionID) {
+  getResponse (req, body, sessionID) {
     let output = '';
     let url = req.url;
     let info = {};
-    if(typeof body != 'object'){
+    if(typeof body != 'object') {
       if (body !== '') {
         info = fileIO.parse(body);
       }
     } else {
-      if(url.includes('/server/config') && !url.includes('.css')){
+      if(url.includes('/server/config') && !url.includes('.css')) {
         info = body;
       }
     }

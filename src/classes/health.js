@@ -1,12 +1,12 @@
 'use strict';
 /* HealthServer class maintains list of health for each sessionID in memory. */
 class HealthServer {
-  constructor() {
+  constructor () {
     this.healths = {};
     this.effects = {};
   }
   /* resets the healh response */
-  initializeHealth(sessionID) {
+  initializeHealth (sessionID) {
     this.healths[sessionID] = {
       'Hydration': 0,
       'Energy': 0,
@@ -32,7 +32,7 @@ class HealthServer {
   // setHealth(sessionID) {
   //     return this.health[sessionID] || this.initializeHealth(sessionID);
   // }
-  offraidHeal(pmcData, body, sessionID) {
+  offraidHeal (pmcData, body, sessionID) {
     let output = item_f.handler.getOutput();
     // update medkit used (hpresource)
     for (let item of pmcData.Inventory.items) {
@@ -53,7 +53,7 @@ class HealthServer {
     }
     return output;
   }
-  offraidEat(pmcData, body, sessionID) {
+  offraidEat (pmcData, body, sessionID) {
     let output = item_f.handler.getOutput();
     let resourceLeft;
     let maxResource = {};
@@ -77,7 +77,7 @@ class HealthServer {
     return output;
   }
   /* stores in-raid player health */
-  saveHealth(pmcData, info, sessionID) {
+  saveHealth (pmcData, info, sessionID) {
     let nodeHealth = this.healths[sessionID];
     let nodeEffects = this.effects[sessionID];
     let BodyPartsList = info.Health;
@@ -96,7 +96,7 @@ class HealthServer {
     this.applyHealth(pmcData, sessionID);
   }
   /* stores the player health changes */
-  updateHealth(info, sessionID) {
+  updateHealth (info, sessionID) {
     let node = this.healths[sessionID];
     switch (info.type) {
     /* store difference from infill */
@@ -125,7 +125,7 @@ class HealthServer {
     }
     this.healths[sessionID] = node;
   }
-  healthTreatment(pmcData, info, sessionID) {
+  healthTreatment (pmcData, info, sessionID) {
     let body = {
       'Action': 'RestoreHealth',
       'tid': '54cb57776803fa99248b456e',
@@ -148,7 +148,7 @@ class HealthServer {
     health_f.handler.saveHealth(pmcData, healthInfo, sessionID);
     return item_f.handler.getOutput();
   }
-  addEffect(pmcData, sessionID, info) {
+  addEffect (pmcData, sessionID, info) {
     let bodyPart = pmcData.Health.BodyParts[info.bodyPart];
     if (bodyPart.Effects == undefined) {
       bodyPart.Effects = {};
@@ -162,7 +162,7 @@ class HealthServer {
     if (this.isEmpty(bodyPart.Effects))
       delete bodyPart.Effects;
   }
-  removeEffect(pmcData, sessionID, info) {
+  removeEffect (pmcData, sessionID, info) {
     let bodyPart = pmcData.Health.BodyParts[info.bodyPart];
     if (!bodyPart.hasOwnProperty('Effects')) {
       return;
@@ -178,7 +178,7 @@ class HealthServer {
       delete bodyPart.Effects;
   }
   /* apply the health changes to the profile */
-  applyHealth(pmcData, sessionID) {
+  applyHealth (pmcData, sessionID) {
     if (!global._database.gameplayConfig.inraid.saveHealthEnabled) {
       return;
     }
@@ -214,7 +214,7 @@ class HealthServer {
     pmcData.Health.UpdateTime = Math.round(Date.now() / 1000);
     this.initializeHealth(sessionID);
   }
-  isEmpty(map) {
+  isEmpty (map) {
     for(var key in map) {
       if (map.hasOwnProperty(key)) {
         return false;

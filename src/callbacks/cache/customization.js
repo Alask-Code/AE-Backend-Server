@@ -6,9 +6,8 @@ exports.cache = () => {
   let base = {'err': 0, 'errmsg': null, 'data': {}};
   for (let file in db.customization) {
     let data = fileIO.readParsed(db.customization[file]);
-    if(Object.keys(data)[0].length == 24){
-      for(let q in data)
-      {
+    if(Object.keys(data)[0].length == 24) {
+      for(let q in data) {
         base.data[q] = data[q];
       }
     } else {

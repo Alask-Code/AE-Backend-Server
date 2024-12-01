@@ -8,27 +8,27 @@
 *	data: Object corresponding to the type.*
 */
 class ScheduledEventHandler {
-  constructor(scheduleIntervalMillis) {
+  constructor (scheduleIntervalMillis) {
     this.eventCallbacks = {};
     this.loadSchedule();
     setInterval(() => {
       this.processSchedule();
     }, scheduleIntervalMillis * 1000);
   }
-  addEvent(type, worker) {
+  addEvent (type, worker) {
     this.eventCallbacks[type] = worker;
   }
-  saveToDisk() {
+  saveToDisk () {
     fileIO.write(db.user.events.schedule, this.scheduledEvents);
   }
-  loadSchedule() {
+  loadSchedule () {
     if (!fileIO.exist(db.user.events.schedule)) {
       this.scheduledEvents = [];
       return;
     }
     this.scheduledEvents = fileIO.readParsed(db.user.events.schedule);
   }
-  processSchedule() {
+  processSchedule () {
     let now = Date.now();
     while (this.scheduledEvents.length > 0) {
       let event = this.scheduledEvents.shift();
@@ -42,33 +42,33 @@ class ScheduledEventHandler {
       break;
     }
   }
-  addToSchedule(event) {
+  addToSchedule (event) {
     this.scheduledEvents.push(event);
     this.scheduledEvents.sort(compareEvent);
   }
-  removeFromSchedule(event) {
+  removeFromSchedule (event) {
     const index = this.scheduledEvents.indexOf(event);
     if (index > -1) {
       return this.scheduledEvents.splice(index, 1);
     }
     return false;
   }
-  getScheduleForSession(sessionID) {
+  getScheduleForSession (sessionID) {
     return this.scheduledEvents.filter(event => event.sessionId === sessionID);
   }
-  wipeScheduleForSession(sessionID) {
+  wipeScheduleForSession (sessionID) {
     this.getScheduleForSession(sessionID)
       .forEach(event => this.removeFromSchedule(event));
     this.saveToDisk();
   }
-  processEvent(event) {
+  processEvent (event) {
     if (event.type in this.eventCallbacks) {
       this.eventCallbacks[event.type](event);
     }
   }
 }
 /* Compare function for events based on their scheduledTime. */
-function compareEvent(a, b) {
+function compareEvent (a, b) {
   if (a.scheduledTime < b.scheduledTime) {
     return -1;
   }

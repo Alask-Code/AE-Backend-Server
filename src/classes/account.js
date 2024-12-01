@@ -4,16 +4,16 @@
 * loaded during server init.
 */
 class AccountServer {
-  constructor() {
+  constructor () {
     this.accounts = {};
   }
-  initialize() {
+  initialize () {
     this.accounts = fileIO.readParsed(db.user.configs.accounts);
   }
-  saveToDisk() {
+  saveToDisk () {
     fileIO.write(db.user.configs.accounts, this.accounts);
   }
-  find(sessionID) {
+  find (sessionID) {
     for (let accountID in this.accounts) {
       let account = this.accounts[accountID];
       if (account.id === sessionID) {
@@ -22,13 +22,13 @@ class AccountServer {
     }
     return undefined;
   }
-  isWiped(sessionID) {
+  isWiped (sessionID) {
     return this.accounts[sessionID].wipe;
   }
-  setWipe(sessionID, state) {
+  setWipe (sessionID, state) {
     this.accounts[sessionID].wipe = state;
   }
-  login(info) {
+  login (info) {
     for (let accountID in this.accounts) {
       let account = this.accounts[accountID];
       if (info.email === account.email && info.password === account.password) {
@@ -37,7 +37,7 @@ class AccountServer {
     }
     return '';
   }
-  register(info) {
+  register (info) {
     for (let accountID in this.accounts) {
       if (info.email === this.accounts[accountID].email) {
         return accountID;
@@ -55,7 +55,7 @@ class AccountServer {
     this.saveToDisk();
     return '';
   }
-  remove(info) {
+  remove (info) {
     let accountID = this.login(info);
     if (accountID !== '') {
       delete this.accounts[accountID];
@@ -64,7 +64,7 @@ class AccountServer {
     }
     return accountID;
   }
-  changeEmail(info) {
+  changeEmail (info) {
     let accountID = this.login(info);
     if (accountID !== '') {
       this.accounts[accountID].email = info.change;
@@ -72,7 +72,7 @@ class AccountServer {
     }
     return accountID;
   }
-  changePassword(info) {
+  changePassword (info) {
     let accountID = this.login(info);
     if (accountID !== '') {
       this.accounts[accountID].password = info.change;
@@ -80,7 +80,7 @@ class AccountServer {
     }
     return accountID;
   }
-  wipe(info) {
+  wipe (info) {
     let accountID = this.login(info);
     if (accountID !== '') {
       this.accounts[accountID].edition = info.edition;
@@ -89,10 +89,10 @@ class AccountServer {
     }
     return accountID;
   }
-  getReservedNickname(sessionID) {
+  getReservedNickname (sessionID) {
     return this.accounts[sessionID].nickname;
   }
-  nicknameTaken(info) {
+  nicknameTaken (info) {
     for (let accountID in this.accounts) {
       if (info.nickname.toLowerCase() === this.accounts[accountID].nickname.toLowerCase()) {
         return true;
@@ -101,7 +101,7 @@ class AccountServer {
     return false;
   }
 }
-function getPath(sessionID) {
+function getPath (sessionID) {
   return `user/profiles/${sessionID}/`;
 }
 module.exports.handler = new AccountServer();

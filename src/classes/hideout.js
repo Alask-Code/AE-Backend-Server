@@ -1,5 +1,5 @@
 'use strict';
-function upgrade(pmcData, body, sessionID) {
+function upgrade (pmcData, body, sessionID) {
   for (let itemToPay of body.items) {
     for (let inventoryItem in pmcData.Inventory.items) {
       if (pmcData.Inventory.items[inventoryItem]._id !== itemToPay.id) {
@@ -32,7 +32,7 @@ function upgrade(pmcData, body, sessionID) {
   return item_f.handler.getOutput();
 }
 // validating the upgrade
-function upgradeComplete(pmcData, body, sessionID) {
+function upgradeComplete (pmcData, body, sessionID) {
   for (let hideoutArea in pmcData.Hideout.Areas) {
     if (pmcData.Hideout.Areas[hideoutArea].type !== body.areaType) {
       continue;
@@ -57,7 +57,7 @@ function upgradeComplete(pmcData, body, sessionID) {
   return item_f.handler.getOutput();
 }
 // move items from hideout
-function putItemsInAreaSlots(pmcData, body, sessionID) {
+function putItemsInAreaSlots (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   for (let itemToMove in body.items) {
     for (let inventoryItem of pmcData.Inventory.items) {
@@ -87,7 +87,7 @@ function putItemsInAreaSlots(pmcData, body, sessionID) {
   }
   return output;
 }
-function takeItemsFromAreaSlots(pmcData, body, sessionID) {
+function takeItemsFromAreaSlots (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   for (let area of pmcData.Hideout.Areas) {
     if (area.type !== body.areaType) {
@@ -124,7 +124,7 @@ function takeItemsFromAreaSlots(pmcData, body, sessionID) {
   }
   return output;
 }
-function toggleArea(pmcData, body, sessionID) {
+function toggleArea (pmcData, body, sessionID) {
   for (let area in pmcData.Hideout.Areas) {
     if (pmcData.Hideout.Areas[area].type == body.areaType) {
       pmcData.Hideout.Areas[area].active = body.enabled;
@@ -132,7 +132,7 @@ function toggleArea(pmcData, body, sessionID) {
   }
   return item_f.handler.getOutput();
 }
-function singleProductionStart(pmcData, body, sessionID) {
+function singleProductionStart (pmcData, body, sessionID) {
   registerProduction(pmcData, body, sessionID);
   let output = item_f.handler.getOutput();
   for (let itemToDelete of body.items) {
@@ -140,7 +140,7 @@ function singleProductionStart(pmcData, body, sessionID) {
   }
   return output;
 }
-function scavCaseProductionStart(pmcData, body, sessionID) {
+function scavCaseProductionStart (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   console.log(body.items);
   for (let item of body.items) {
@@ -198,11 +198,11 @@ function scavCaseProductionStart(pmcData, body, sessionID) {
   }
   return output;
 }
-function continuousProductionStart(pmcData, body, sessionID) {
+function continuousProductionStart (pmcData, body, sessionID) {
   registerProduction(pmcData, body, sessionID);
   return item_f.handler.getOutput();
 }
-function handleBitcoinReproduction(pmcData, sessionID) {
+function handleBitcoinReproduction (pmcData, sessionID) {
   let output = item_f.handler.getOutput();
   keepalive_f.main(sessionID); // Force keepalive call to prevent client/server desync.
   let bitcoin = {
@@ -222,7 +222,7 @@ function handleBitcoinReproduction(pmcData, sessionID) {
   pmcData.Hideout.Production['5d5c205bd582a50d042a3c0e'].Products = [];
   return output;
 }
-function takeProduction(pmcData, body, sessionID) {
+function takeProduction (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   if (body.recipeId === '5d5c205bd582a50d042a3c0e') {
     return handleBitcoinReproduction(pmcData, sessionID);
@@ -236,7 +236,9 @@ function takeProduction(pmcData, body, sessionID) {
       if (pmcData.Hideout.Production[prod].RecipeId === body.recipeId) {
         if (body.recipeId === '5d5c205bd582a50d042a3c0e') {
           continue;
-        } else { delete pmcData.Hideout.Production[prod]; }
+        } else {
+          delete pmcData.Hideout.Production[prod];
+        }
       }
     }
     // create item and throw it into profile
@@ -278,7 +280,7 @@ function takeProduction(pmcData, body, sessionID) {
   }
   return '';
 }
-function registerProduction(pmcData, body, sessionID) {
+function registerProduction (pmcData, body, sessionID) {
   for (let recipe in _database.hideout.production) {
     if (body.recipeId === _database.hideout.production[recipe]._id) {
       try {
@@ -301,7 +303,7 @@ function registerProduction(pmcData, body, sessionID) {
 // ...
 // with that I mean manual implementation
 // RIP, GL whoever is going to do this
-function applyPlayerUpgradesBonuses(pmcData, bonus) {
+function applyPlayerUpgradesBonuses (pmcData, bonus) {
   switch (bonus.type) {
   case 'StashSize':
     for (let item in pmcData.Inventory.items) {

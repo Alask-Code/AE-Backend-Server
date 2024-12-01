@@ -1,6 +1,6 @@
 'use strict';
 class Server {
-  constructor() {
+  constructor () {
     this.buffers = {};
     this.name = serverConfig.name;
     this.ip = serverConfig.ip;
@@ -18,45 +18,44 @@ class Server {
       json: 'application/json'
     };
     this.createCacheCallback();
-    //this.createStartCallback();
     this.createReceiveCallback();
     this.createRespondCallback();
     this.respondCallback['DONE'] = this.killResponse.bind(this);
   }
-  createCacheCallback(){
+  createCacheCallback () {
     this.cacheCallback = {};
     let path = './src/callbacks/cache';
     let files = fileIO.readDir(path);
-    for(let file of files){
+    for(let file of files) {
       let scriptName = 'cache' + file.replace('.js','');
       this.cacheCallback[scriptName] = require('../../src/callbacks/cache/' + file).cache;
     }
     logger.logSuccess('Create: Cache Callback');
   }
-  createReceiveCallback(){
+  createReceiveCallback () {
     this.receiveCallback = {};
     let path = './src/callbacks/receive';
     let files = fileIO.readDir(path);
-    for(let file of files){
+    for(let file of files) {
       let scriptName = file.replace('.js','');
       this.receiveCallback[scriptName] = require('../../src/callbacks/receive/' + file).execute;
     }
     logger.logSuccess('Create: Receive Callback');
   }
-  createRespondCallback(){
+  createRespondCallback () {
     this.respondCallback = {};
     let path = './src/callbacks/respond';
     let files = fileIO.readDir(path);
-    for(let file of files){
+    for(let file of files) {
       let scriptName = file.replace('.js','');
       this.respondCallback[scriptName] = require('../../src/callbacks/respond/' + file).execute;
     }
     logger.logSuccess('Create: Respond Callback');
   }
-  resetBuffer(sessionID) {
+  resetBuffer (sessionID) {
     this.buffers[sessionID] = undefined;
   }
-  putInBuffer(sessionID, data, bufLength) {
+  putInBuffer (sessionID, data, bufLength) {
     if (this.buffers[sessionID] === undefined || this.buffers[sessionID].allocated !== bufLength) {
       this.buffers[sessionID] = {
         written: 0,
@@ -69,33 +68,33 @@ class Server {
     buf.written += data.length;
     return buf.written === buf.allocated;
   }
-  getFromBuffer(sessionID) {
+  getFromBuffer (sessionID) {
     return this.buffers[sessionID].buffer;
   }
-  getName() {
+  getName () {
     return this.name;
   }
-  getIp() {
+  getIp () {
     return this.ip;
   }
-  getPort() {
+  getPort () {
     return this.port;
   }
-  getBackendUrl() {
+  getBackendUrl () {
     if(this.second_backendUrl != null)
       return this.second_backendUrl;
     return this.backendUrl;
   }
-  getVersion() {
+  getVersion () {
     return this.version;
   }
-  generateCertificate() {
+  generateCertificate () {
     const certDir = internal.resolve(__dirname, '../../user/certs');
     const certFile = internal.resolve(certDir, 'cert.pem');
     const keyFile = internal.resolve(certDir, 'key.pem');
     let cert,
       key;
-    if(fileIO.exist(certFile) && fileIO.exist(keyFile)){
+    if(fileIO.exist(certFile) && fileIO.exist(keyFile)) {
       cert = fileIO.readParsed(certFile);
       key = fileIO.readParsed(keyFile);
     } else {
@@ -119,21 +118,21 @@ class Server {
     }
     return { cert, key };
   }
-  sendZlibJson(resp, output, sessionID) {
+  sendZlibJson (resp, output, sessionID) {
     resp.writeHead(200, 'OK', {'Content-Type': this.mime['json'], 'content-encoding' : 'deflate', 'Set-Cookie' : 'PHPSESSID=' + sessionID});
     internal.zlib.deflate(output, function (err, buf) {
       resp.end(buf);
     });
   }
-  sendTextJson(resp, output) {
+  sendTextJson (resp, output) {
     resp.writeHead(200, 'OK', {'Content-Type': this.mime['json']});
     resp.end(output);
   }
-  sendHtml(resp, output) {
+  sendHtml (resp, output) {
     resp.writeHead(200, 'OK', {'Content-Type': this.mime['html']});
     resp.end(output);
   }
-  sendFile(resp, file) {
+  sendFile (resp, file) {
     let pathSlic = file.split('/');
     let type = this.mime[pathSlic[pathSlic.length -1].split('.')[1]] || this.mime['txt'];
     let fileStream = fileIO.createReadStream(file);
@@ -142,32 +141,29 @@ class Server {
       fileStream.pipe(resp);
     });
   }
-  killResponse() {
+  killResponse () {
     return;
   }
-  sendResponse(sessionID, req, resp, body) {
+  sendResponse (sessionID, req, resp, body) {
     let output = '';
-    if(req.url == '/favicon.ico'){
+    if(req.url == '/favicon.ico') {
       this.sendFile(resp, 'res/icon.ico');
       return;
     }
-    if(req.url.includes('.css')){
+    if(req.url.includes('.css')) {
       this.sendFile(resp, 'res/style.css');
       return;
     }
-    if(req.url.includes('bender.light.otf')){
+    if(req.url.includes('bender.light.otf')) {
       this.sendFile(resp, 'res/bender.light.otf');
       return;
     }
-    if(req.url.includes('/server/config')){
+    if(req.url.includes('/server/config')) {
       // load html page represented by home_f
       output = router.getResponse(req, body, sessionID);
       this.sendHtml(resp, output, '');
     }
-    if(req.url == '/')
-    {
-      //home_f.processSaveData(body);
-      // its hard to create a file `.js` in folder in windows cause it looks cancerous so we gonna write this code here
+    if(req.url == '/') {
       output = home_f.RenderHomePage();
       this.sendHtml(resp, output, '');
       return;
@@ -195,7 +191,7 @@ class Server {
       this.sendZlibJson(resp, output, sessionID);
     }
   }
-  handleRequest(req, resp) {
+  handleRequest (req, resp) {
     let IP = req.connection.remoteAddress.replace('::ffff:', '');
 		    IP = ((IP == '127.0.0.1')?'LOCAL':IP);
     const sessionID = utility.getCookies(req)['PHPSESSID'];
@@ -209,11 +205,11 @@ class Server {
     // request with data
     if (req.method === 'POST') {
       req.on('data', function (data) {
-        if(req.url == '/' || req.url.includes('/server/config')){
+        if(req.url == '/' || req.url.includes('/server/config')) {
           let _Data = data.toString();
           _Data = _Data.split('&');
           let _newData = {};
-          for(let item in _Data){
+          for(let item in _Data) {
             let datas = _Data[item].split('=');
             _newData[datas[0]] = datas[1];
           }
@@ -228,7 +224,7 @@ class Server {
     }
     // emulib responses
     if (req.method === 'PUT') {
-      req.on('data', function(data) {
+      req.on('data', function (data) {
         // receive data
         if ('expect' in req.headers) {
           const requestLength = parseInt(req.headers['content-length']);
@@ -236,7 +232,7 @@ class Server {
             resp.writeContinue();
           }
         }
-      }).on('end', function() {
+      }).on('end', function () {
         let data = server.getFromBuffer(sessionID);
         server.resetBuffer(sessionID);
         internal.zlib.inflate(data, function (err, body) {
@@ -246,27 +242,27 @@ class Server {
       });
     }
   }
-  _serverStart(){
+  _serverStart () {
     let backend = this.backendUrl;
     /* create server */
     let httpsServer = internal.https.createServer(this.generateCertificate(), (req, res) => {
       this.handleRequest(req, res);
-    }).listen(this.port, this.ip, function() {
+    }).listen(this.port, this.ip, function () {
       logger.logSuccess(`Server is working at: ${backend}`);
     });
     /* server is already running or program using privileged port without root */
-    httpsServer.on('error', function(e) {
+    httpsServer.on('error', function (e) {
       if (internal.process.platform === 'linux' && !(internal.process.getuid && internal.process.getuid() === 0) && e.port < 1024) {
         logger.throwErr('» Non-root processes cannot bind to ports below 1024.', '>> core/server.server.js line 274');
       } else if (e.code == 'EADDRINUSE') {
         internal.psList().then(data => {
           let cntProc = 0;
-          for(let proc of data){
+          for(let proc of data) {
             let procName = proc.name.toLowerCase();
             if((procName.indexOf('node') != -1 ||
 						procName.indexOf('server') != -1 ||
 						procName.indexOf('emu') != -1 ||
-						procName.indexOf('justemu') != -1) && proc.pid != internal.process.pid){
+						procName.indexOf('justemu') != -1) && proc.pid != internal.process.pid) {
               logger.logWarning(`ProcessID: ${proc.pid} - Name: ${proc.name}`);
               cntProc++;
             }
@@ -280,26 +276,26 @@ class Server {
       };
     });
   }
-  softRestart(){
+  softRestart () {
     logger.logInfo('[SoftRestart]: Reloading Database');
     require('../../src/database.js').execute();
     // will not be required if all data is loaded into memory
     logger.logInfo('[SoftRestart]: Re-initializing');
     for (let type in global) {
       if(type.indexOf('_f') != type.length-2) continue;
-      if(typeof global[type].handler == 'object'){
-        if(typeof global[type].handler.initialize == 'function'){
+      if(typeof global[type].handler == 'object') {
+        if(typeof global[type].handler.initialize == 'function') {
           global[type].handler.initialize();
         }
       }
-      if(typeof global[type].initialize == 'function'){
+      if(typeof global[type].initialize == 'function') {
         global[type].initialize();
       }
     }
     logger.logInfo('[SoftRestart]: Reloading TamperMods');
     global.core.route.TamperModLoad(); // TamperModLoad
   }
-  start() {
+  start () {
     // execute cache callback
     logger.logInfo('[Warmup]: Cache callbacks...');
     for (let type in this.cacheCallback) {
@@ -311,17 +307,15 @@ class Server {
     logger.logInfo('[Warmup]: Loading Database');
     require('../../src/database.js').execute();
     // execute start callback
-    //logger.logInfo("[Warmup]: Start callbacks...");
-    //this.startCallback["loadStaticdata"](); // this need to run first cause reasons
     // will not be required if all data is loaded into memory
     for (let type in global) {
       if(type.indexOf('_f') != type.length-2) continue;
-      if(typeof global[type].handler == 'object'){
-        if(typeof global[type].handler.initialize == 'function'){
+      if(typeof global[type].handler == 'object') {
+        if(typeof global[type].handler.initialize == 'function') {
           global[type].handler.initialize();
         }
       }
-      if(typeof global[type].initialize == 'function'){
+      if(typeof global[type].initialize == 'function') {
         global[type].initialize();
       }
     }

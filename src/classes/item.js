@@ -1,16 +1,16 @@
 'use strict';
 class ItemServer {
-  constructor() {
+  constructor () {
     this.output = '';
     this.routes = {};
     this.routeStructure = {};
     this.resetOutput();
   }
   /* adds route to check for */
-  addRoute(route, callback) {
+  addRoute (route, callback) {
     this.routes[route] = callback;
   }
-  updateRouteStruct(){
+  updateRouteStruct () {
     this.routeStructure = {
       'Eat': health_f.handler.offraidEat,
       'Heal': health_f.handler.offraidHeal,
@@ -57,7 +57,7 @@ class ItemServer {
       'CreateMapMarker': status_f.handleMapMarker
     };
   }
-  handleRoutes(info, sessionID) {
+  handleRoutes (info, sessionID) {
     this.resetOutput();
     for (let body of info.data) {
       let pmcData = profile_f.handler.getPmcProfile(sessionID);
@@ -69,16 +69,16 @@ class ItemServer {
     }
     return this.output;
   }
-  getOutput() {
+  getOutput () {
     if (this.output === '') {
       this.resetOutput();
     }
     return this.output;
   }
-  setOutput(data) {
+  setOutput (data) {
     this.output = data;
   }
-  resetOutput() {
+  resetOutput () {
     this.output = {'items': {'new': [], 'change': [], 'del': []}, 'badRequest': [], 'quests': [], 'ragFairOffers': [], 'builds': [], 'currentSalesSums': {}};
   }
 }

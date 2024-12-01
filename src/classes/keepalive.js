@@ -1,11 +1,11 @@
 'use strict';
-function main(sessionID) {
+function main (sessionID) {
   if (!account_f.handler.isWiped(sessionID)) {
     updateTraders(sessionID);
     updatePlayerHideout(sessionID);
   }
 }
-function updateTraders(sessionID) {
+function updateTraders (sessionID) {
   // update each hour
   let update_per = 3600;
   let timeNow = Math.floor(Date.now() / 1000);
@@ -29,7 +29,7 @@ function updateTraders(sessionID) {
     tradersToUpdateList[i].supply_next_time = newTraderTime;
   }
 }
-function updatePlayerHideout(sessionID) {
+function updatePlayerHideout (sessionID) {
   let pmcData = profile_f.handler.getPmcProfile(sessionID);
   let recipes = fileIO.readParsed(db.user.cache.hideout_production);
   let solarPowerLevel = 0;
@@ -113,7 +113,7 @@ function updatePlayerHideout(sessionID) {
     }
   }
 }
-function updateWaterFilters(waterFilterArea) {
+function updateWaterFilters (waterFilterArea) {
   // thanks to Alexter161
   let decreaseValue = 0.00333;
   for (let i = 0; i < waterFilterArea.slots.length; i++) {
@@ -145,7 +145,7 @@ function updateWaterFilters(waterFilterArea) {
   }
   return waterFilterArea;
 }
-function updateFuel(generatorArea, solarPower) {
+function updateFuel (generatorArea, solarPower) {
   let noFuelAtAll = true;
   let decreaseFuel = 0.0665;
   if (solarPower == 1) {
@@ -188,7 +188,7 @@ function updateFuel(generatorArea, solarPower) {
   }
   return generatorArea;
 }
-function updateAirFilters(airFilterArea) {
+function updateAirFilters (airFilterArea) {
   let decreaseValue = 0.00417;
   for (let i = 0; i < airFilterArea.slots.length; i++) {
     if (airFilterArea.slots[i].item == null || airFilterArea.slots[i].item === undefined) {
@@ -217,7 +217,7 @@ function updateAirFilters(airFilterArea) {
   }
   return airFilterArea;
 }
-function updateBitcoinFarm(btcProd, farmrecipe, btcFarmCGs, isGeneratorOn, pmcData) {
+function updateBitcoinFarm (btcProd, farmrecipe, btcFarmCGs, isGeneratorOn, pmcData) {
   let MAX_BTC = 3;
   // Elite level HideoutManagement lets you create 5 BTC max, not 3.
   for (let k in pmcData.Skills.Common) {

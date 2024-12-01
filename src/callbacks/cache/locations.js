@@ -1,4 +1,4 @@
-function Create_ForcedDynamicStruct(item_data){
+function Create_ForcedDynamicStruct (item_data) {
   let isStatic = false;
   let useGravity = false;
   let randomRotation = false;
@@ -10,14 +10,12 @@ function Create_ForcedDynamicStruct(item_data){
     useGravity = item_data.useGravity;
   if(typeof item_data.randomRotation != 'undefined')
     randomRotation = item_data.randomRotation;
-  if(item_data.Position != 0)
-  {
+  if(item_data.Position != 0) {
     position.x = item_data.Position[0];
     position.y = item_data.Position[1];
     position.z = item_data.Position[2];
   }
-  if(item_data.Rotation != 0)
-  {
+  if(item_data.Rotation != 0) {
     rotation.x = item_data.Rotation[0];
     rotation.y = item_data.Rotation[1];
     rotation.z = item_data.Rotation[2];
@@ -40,7 +38,7 @@ function Create_ForcedDynamicStruct(item_data){
     ]
   };
 }
-function Create_StaticMountedStruct(item_data){
+function Create_StaticMountedStruct (item_data) {
   let isStatic = false;
   let useGravity = false;
   let randomRotation = false;
@@ -52,14 +50,12 @@ function Create_StaticMountedStruct(item_data){
     useGravity = item_data.useGravity;
   if(typeof item_data.randomRotation != 'undefined')
     randomRotation = item_data.randomRotation;
-  if(item_data.Position != 0)
-  {
+  if(item_data.Position != 0) {
     position.x = item_data.Position[0];
     position.y = item_data.Position[1];
     position.z = item_data.Position[2];
   }
-  if(item_data.Rotation != 0)
-  {
+  if(item_data.Rotation != 0) {
     rotation.x = item_data.Rotation[0];
     rotation.y = item_data.Rotation[1];
     rotation.z = item_data.Rotation[2];
@@ -87,11 +83,11 @@ exports.cache = () => {
     let _location = { 'base': {}, 'loot': {}};
     _location.base = fileIO.readParsed(db.locations.base[name]);
     _location.loot = {forced: [], mounted: [], static: [], dynamic: []};
-    if(typeof db.locations.loot[name] != 'undefined'){
+    if(typeof db.locations.loot[name] != 'undefined') {
       let loot_data = fileIO.readParsed(db.locations.loot[name]);
-      for(let type in loot_data){
-        for(item of loot_data[type]){
-          if(type == 'static' || type == 'mounted'){
+      for(let type in loot_data) {
+        for(item of loot_data[type]) {
+          if(type == 'static' || type == 'mounted') {
             _location.loot[type].push(Create_StaticMountedStruct(item));
             continue;
           }

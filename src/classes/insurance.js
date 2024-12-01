@@ -1,10 +1,10 @@
 'use strict';
 class InsuranceServer {
-  constructor() {
+  constructor () {
     this.insured = {};
     events.scheduledEventHandler.addEvent('insuranceReturn', this.processReturn.bind(this));
   }
-  checkExpiredInsurance() {
+  checkExpiredInsurance () {
     let scheduledEvents = events.scheduledEventHandler.scheduledEvents;
     let now = Date.now();
     for (let count = scheduledEvents.length - 1; count >= 0; count--) {
@@ -16,7 +16,7 @@ class InsuranceServer {
     }
   }
   /* remove insurance from an item */
-  remove(pmcData, body) {
+  remove (pmcData, body) {
     let toDo = [body];
     //Find the item and all of it's relates
     if (toDo[0] === undefined || toDo[0] === null || toDo[0] === 'undefined') {
@@ -37,11 +37,11 @@ class InsuranceServer {
     }
   }
   /* resets items to send on flush */
-  resetSession(sessionID) {
+  resetSession (sessionID) {
     this.insured[sessionID] = {};
   }
   /* adds gear to store */
-  addGearToSend(pmcData, insuredItem, actualItem, sessionID) {
+  addGearToSend (pmcData, insuredItem, actualItem, sessionID) {
     // Don't process insurance for melee weapon or secure container.
     if (actualItem.slotId === 'Scabbard' || actualItem.slotId === 'SecuredContainer') {
       return;
@@ -50,7 +50,7 @@ class InsuranceServer {
       'pocket1',
       'pocket2',
       'pocket3',
-      'pocket4',
+      'pocket4'
     ];
     // Check and correct the validity of the slotId.
     if (!('slotId' in actualItem) || pocketSlots.includes(actualItem.slotId) || !isNaN(actualItem.slotId)) {
@@ -69,7 +69,7 @@ class InsuranceServer {
     this.remove(pmcData, insuredItem.itemId);
   }
   /* store lost pmc gear */
-  storeLostGear(pmcData, offraidData, preRaidGear, sessionID) {
+  storeLostGear (pmcData, offraidData, preRaidGear, sessionID) {
     // Build a hash table to reduce loops
     const preRaidGearHash = {};
     preRaidGear.forEach(i => preRaidGearHash[i._id] = i);
@@ -92,7 +92,7 @@ class InsuranceServer {
     }
   }
   /* store insured items on pmc death */
-  storeDeadGear(pmcData, offraidData, preRaidGear, sessionID) {
+  storeDeadGear (pmcData, offraidData, preRaidGear, sessionID) {
     let gears = [];
     let parentItems = {};
     let securedContainerItems = offraid_f.getSecuredContainer(offraidData.profile.Inventory.items);
@@ -122,7 +122,7 @@ class InsuranceServer {
     }
   }
   /* sends stored insured items as message */
-  sendInsuredItems(pmcData, sessionID) {
+  sendInsuredItems (pmcData, sessionID) {
     for (let traderId in this.insured[sessionID]) {
       let trader = trader_f.handler.getTrader(traderId, sessionID);
       let dialogueTemplates = fileIO.readParsed(db.dialogues[traderId]);
@@ -154,7 +154,7 @@ class InsuranceServer {
     }
     this.resetSession(sessionID);
   }
-  processReturn(event) {
+  processReturn (event) {
     // Inject a little bit of a surprise by failing the insurance from time to time ;)
     if (utility.getRandomInt(0, 99) >= global._database.gameplayConfig.trading.insureReturnChance) {
       let insuranceFailedTemplates = fileIO.readParsed(db.dialogues[event.data.traderId]).insuranceFailed;
@@ -165,7 +165,7 @@ class InsuranceServer {
   }
 }
 // TODO: Move to helper functions
-function getItemPrice(_tpl) {
+function getItemPrice (_tpl) {
   let price = 0;
   if (typeof (global.templatesById) === 'undefined') {
     global.templatesById = {};
@@ -180,13 +180,13 @@ function getItemPrice(_tpl) {
   }
   return price;
 }
-function getPremium(pmcData, inventoryItem, traderId) {
+function getPremium (pmcData, inventoryItem, traderId) {
   let premium = getItemPrice(inventoryItem._tpl) * (global._database.gameplayConfig.trading.insureMultiplier * 3);
   premium -= premium * (pmcData.TraderStandings[traderId].currentStanding > 0.5 ? 0.5 : pmcData.TraderStandings[traderId].currentStanding);
   return Math.round(premium);
 }
 /* calculates insurance cost */
-function cost(info, sessionID) {
+function cost (info, sessionID) {
   let output = {};
   let pmcData = profile_f.handler.getPmcProfile(sessionID);
   let inventoryItemsHash = {};
@@ -207,7 +207,7 @@ function cost(info, sessionID) {
   return output;
 }
 /* add insurance to an item */
-function insure(pmcData, body, sessionID) {
+function insure (pmcData, body, sessionID) {
   let itemsToPay = [];
   let inventoryItemsHash = {};
   pmcData.Inventory.items.forEach(i => inventoryItemsHash[i._id] = i);

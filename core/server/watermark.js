@@ -18,18 +18,16 @@ const textTable = [
 ];
 /* Calculate Box Sizes - START */
 var longestTextTableIndex = 0;
-function getBoxSpacing(isUpper = 0, text = ''){
+function getBoxSpacing (isUpper = 0, text = '') {
   let box_spacing_between = '';
-  if(text != '')
-  { // isUpper [0]; text [(!= "")]
-    let diffrence = Math.abs(text.length - textTable[longestTextTableIndex].length);
-    for (let i = 0; i < diffrence; i++) {
+  if(text != '') {
+    let difference = Math.abs (text.length - textTable[longestTextTableIndex].length);
+    for (let i = 0; i < difference; i++) {
       box_spacing_between += ' ';
     }
-  } else
-  { // isUpper [0 => "", 1 => "▄", 2 => "▀"]; text [(== "")]
+  } else {
     for (let i = 0; i < textTable[longestTextTableIndex].length; i++) {
-      box_spacing_between += (isUpper == 0)?' ':'═';//(isUpper == 1)?"─":(isUpper == 0)?" ":"─";
+      box_spacing_between += (isUpper == 0)?' ':'═';
     }
   }
   return box_spacing_between;
@@ -41,7 +39,7 @@ module.exports.run = () => {
   internal.process.title = 'AE Backend Server';
   // Get longest string here
   let lastText = '';
-  for(let idx in textTable){
+  for(let idx in textTable) {
     if (textTable[idx].length >= lastText.length) {
       lastText = textTable[idx];
       longestTextTableIndex = idx;
@@ -55,7 +53,9 @@ module.exports.run = () => {
   /* Intro Display */
   logger.logRequest(`╔══${box_width_top}═════╗`);
   logger.logRequest(`║ ╔═${box_width_top}══╗ ║`);
-  for (let idx of textTable){logger.logRequest(`║ ║ ${idx}${getBoxSpacing(0,idx)}  ║ ║`);	}
+  for (let idx of textTable) {
+    logger.logRequest(`║ ║ ${idx}${getBoxSpacing(0,idx)}  ║ ║`);
+  }
   logger.logRequest(`║ ╚══${box_width_top}═╝ ║`);
   logger.logRequest(`╚══${box_width_top}═════╝`);
 };

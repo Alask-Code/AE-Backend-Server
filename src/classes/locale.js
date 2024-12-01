@@ -1,6 +1,6 @@
 ﻿'use strict';
 class LocaleServer {
-  initialize() {
+  initialize () {
     global._database.locales.global['en'].interface['Attention! This is a Beta version of Escape from Tarkov for testing purposes.'] = 'Attention! This is Emulated version of "Escape from Tarkov". Provided by JustEmuTarkov Team (justemutarkov.eu).';
     global._database.locales.global['en'].interface['NDA free warning'] = 'If you like this game make sure to support official creators of this game (BattleState Games).';
     global._database.locales.global['en'].interface['Offline raid description'] = 'You are now entering an emulated version of a Tarkov raid. This emulated raid has all the features of a live version, but it has no connection to BSG\'s servers, and stays local on your PC.\nOther PMCs will spawn as emulated AI, and will spawn with randomized gear, levels, inventory, and names. This means you can loot, kill, and extract as you would online, and keep your inventory when you extract, but you cannot bring this loot into live EFT servers.\nIf you have any questions, don\'t hesitate to join the JustEmuTarkov Discord for assistance.';
@@ -14,15 +14,15 @@ class LocaleServer {
     global._database.locales.global['fr'].interface['NDA free warning'] = 'Si vous aimez ce jeu, n\'oubliez pas de supporter les créateurs officiels de ce jeu (BattleState Games).';
     global._database.locales.global['fr'].interface['Offline raid description'] = 'Vous entez maintenant une version émuler d\'un raid de Tarkov. Ce raid émulé contient toutes les fonctionnalités de la version "live" mais n\'as pas de connexion au serveurs de BSG. Les autres joueurs dans le raid seront une AI qui apparaît avec des armures/niveaux/inventaire/nom aléatoires. Sa veut dire que vous pouvez loot, tuer et s\'extraire de la map comme vous le feriez online, et garder votre inventaire quand vous vous enfuyez, mais vous pouvez pas transférer ce loot dans la version "live" du jeu. Si vous avez des questions, n\'hésitez pas a rejoindre notre serveur discord "JustEmuTarkov" pour recevoir plus d\'assistance.';
   }
-  getLanguages() {
+  getLanguages () {
     return global._database.languages;
   }
-  getMenu(lang = 'en') {
+  getMenu (lang = 'en') {
     if(typeof global._database.locales.menu[lang] == 'undefined')
       return global._database.locales.menu['en'];
     return global._database.locales.menu[lang];
   }
-  getGlobal(lang = 'en') {
+  getGlobal (lang = 'en') {
     if(typeof global._database.locales.global[lang] == 'undefined')
       return global._database.locales.global['en'];
     return global._database.locales.global[lang];

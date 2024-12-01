@@ -1,18 +1,18 @@
 'use strict';
 class DialogueServer {
-  constructor() {
+  constructor () {
     this.dialogues = {};
   }
-  initializeDialogue(sessionID) {
+  initializeDialogue (sessionID) {
     this.dialogues[sessionID] = fileIO.readParsed(getPath(sessionID));
   }
-  saveToDisk(sessionID) {
+  saveToDisk (sessionID) {
     if (sessionID in this.dialogues) {
       fileIO.write(getPath(sessionID), this.dialogues[sessionID]);
     }
   }
   /* Set the content of the dialogue on the list tab. */
-  generateDialogueList(sessionID) {
+  generateDialogueList (sessionID) {
     let data = [];
     for (let dialogueId in this.dialogues[sessionID]) {
       data.push(this.getDialogueInfo(dialogueId, sessionID));
@@ -20,7 +20,7 @@ class DialogueServer {
     return `{"err":0,"errmsg":null,"data": ${fileIO.stringify(data)}}`;
   }
   /* Get the content of a dialogue. */
-  getDialogueInfo(dialogueId, sessionID) {
+  getDialogueInfo (dialogueId, sessionID) {
     let dialogue = this.dialogues[sessionID][dialogueId];
     return {
       '_id': dialogueId,
@@ -35,7 +35,7 @@ class DialogueServer {
 	* Set the content of the dialogue on the details panel, showing all the messages
 	* for the specified dialogue.
 	*/
-  generateDialogueView(dialogueId, sessionID) {
+  generateDialogueView (dialogueId, sessionID) {
     let dialogue = this.dialogues[sessionID][dialogueId];
     dialogue.new = 0;
     // Set number of new attachments, but ignore those that have expired.
@@ -52,7 +52,7 @@ class DialogueServer {
   /*
 	* Add a templated message to the dialogue.
 	*/
-  addDialogueMessage(dialogueID, messageContent, sessionID, rewards = []) {
+  addDialogueMessage (dialogueID, messageContent, sessionID, rewards = []) {
     if(this.dialogues[sessionID] === undefined) {
       this.initializeDialogue(sessionID);
     }
@@ -106,7 +106,7 @@ class DialogueServer {
   /*
 	* Get the preview contents of the last message in a dialogue.
 	*/
-  getMessagePreview(dialogue) {
+  getMessagePreview (dialogue) {
     // The last message of the dialogue should be shown on the preview.
     let message = dialogue.messages[dialogue.messages.length - 1];
     return {
@@ -119,7 +119,7 @@ class DialogueServer {
   /*
 	* Get the item contents for a particular message.
 	*/
-  getMessageItemContents(messageId, sessionID) {
+  getMessageItemContents (messageId, sessionID) {
     let dialogueData = this.dialogues[sessionID];
     for (let dialogueId in dialogueData) {
       let messages = dialogueData[dialogueId].messages;
@@ -136,20 +136,20 @@ class DialogueServer {
     }
     return [];
   }
-  removeDialogue(dialogueId, sessionID) {
+  removeDialogue (dialogueId, sessionID) {
     delete this.dialogues[sessionID][dialogueId];
   }
-  setDialoguePin(dialogueId, shouldPin, sessionID) {
+  setDialoguePin (dialogueId, shouldPin, sessionID) {
     this.dialogues[sessionID][dialogueId].pinned = shouldPin;
   }
-  setRead(dialogueIds, sessionID) {
+  setRead (dialogueIds, sessionID) {
     let dialogueData = this.dialogues[sessionID];
     for (let dialogId of dialogueIds) {
       dialogueData[dialogId].new = 0;
       dialogueData[dialogId].attachmentsNew = 0;
     }
   }
-  getAllAttachments(dialogueId, sessionID) {
+  getAllAttachments (dialogueId, sessionID) {
     let output = [];
     let timeNow = Date.now() / 1000;
     for (let message of this.dialogues[sessionID][dialogueId].messages) {
@@ -161,7 +161,7 @@ class DialogueServer {
     return {'messages': output};
   }
   // deletion of items that has been expired. triggers when updating traders.
-  removeExpiredItems(sessionID) {
+  removeExpiredItems (sessionID) {
     for (let dialogueId in this.dialogues[sessionID]) {
       for (let message of this.dialogues[sessionID][dialogueId].messages) {
         if ((Date.now() / 1000) > (message.dt+message.maxStorageTime)) {
@@ -171,7 +171,7 @@ class DialogueServer {
     }
   }
 }
-function getPath(sessionID) {
+function getPath (sessionID) {
   let path = db.user.profiles.dialogue;
   return path.replace('__REPLACEME__', sessionID);
 }
@@ -185,7 +185,7 @@ let messageTypes = {
 /*
 * Return the int value associated with the messageType, for readability.
 */
-function getMessageTypeValue(messageType) {
+function getMessageTypeValue (messageType) {
   return messageTypes[messageType];
 }
 // TODO(camo1018): Coalesce all findAndReturnChildren functions.
@@ -196,7 +196,7 @@ function getMessageTypeValue(messageType) {
 * returns all child items ids in array, includes itself and children
 * Same as the function in helpFunctions, just adapted for message items.
 * */
-function findAndReturnChildren(messageItems, itemid) {
+function findAndReturnChildren (messageItems, itemid) {
   let list = [];
   for (let childitem of messageItems) {
     if (childitem.parentId === itemid) {

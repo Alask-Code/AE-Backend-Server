@@ -8,8 +8,7 @@ exports.cache = () => {
   for (let file in inputFiles) {
     let filePath = inputFiles[file];
     let NodeFileData = fileIO.readParsed(filePath);
-    for (let items of NodeFileData)
-    {
+    for (let items of NodeFileData) {
       base.data[items._id] = items;
     }
   }

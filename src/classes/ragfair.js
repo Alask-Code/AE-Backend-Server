@@ -1,11 +1,11 @@
 'use strict';
-function sortOffersByID(a, b) {
+function sortOffersByID (a, b) {
   return a.intId - b.intId;
 }
-function sortOffersByRating(a, b) {
+function sortOffersByRating (a, b) {
   return a.user.rating - b.user.rating;
 }
-function sortOffersByName(a, b) {
+function sortOffersByName (a, b) {
   // @TODO: Get localized item names
   try {
     let aa = helper_f.getItem(a._id)[1]._name;
@@ -17,16 +17,16 @@ function sortOffersByName(a, b) {
     return 0;
   }
 }
-function sortOffersByPrice(a, b) {
+function sortOffersByPrice (a, b) {
   return a.requirements[0].count - b.requirements[0].count;
 }
-function sortOffersByPriceSummaryCost(a,b){
+function sortOffersByPriceSummaryCost (a,b) {
   return a.summaryCost - b.summaryCost;
 }
-function sortOffersByExpiry(a, b) {
+function sortOffersByExpiry (a, b) {
   return a.endTime - b.endTime;
 }
-function sortOffers(request, offers) {
+function sortOffers (request, offers) {
   // Sort results
   switch (request.sortType) {
   case 0: // ID
@@ -39,8 +39,11 @@ function sortOffers(request, offers) {
     offers.sort(sortOffersByName);
     break;
   case 5: // Price
-    if(request.offerOwnerType ==  1){  offers.sort(sortOffersByPriceSummaryCost); }
-    else{ offers.sort(sortOffersByPrice); }
+    if(request.offerOwnerType ==  1) {
+      offers.sort(sortOffersByPriceSummaryCost);
+    } else{
+      offers.sort(sortOffersByPrice);
+    }
     break;
   case 6: // Expires in
     offers.sort(sortOffersByExpiry);
@@ -53,7 +56,7 @@ function sortOffers(request, offers) {
   return offers;
 }
 /* Scans a given slot type for filters and returns them as a Set */
-function getFilters(item, slot) {
+function getFilters (item, slot) {
   let result = new Set();
   if (slot in item._props && item._props[slot].length) {
     for (let sub of item._props[slot]) {
@@ -69,7 +72,7 @@ function getFilters(item, slot) {
   return result;
 }
 /* Like getFilters but breaks early and return true if id is found in filters */
-function isInFilter(id, item, slot) {
+function isInFilter (id, item, slot) {
   if (slot in item._props && item._props[slot].length) {
     for (let sub of item._props[slot]) {
       if ('_props' in sub && 'filters' in sub._props) {
@@ -84,7 +87,7 @@ function isInFilter(id, item, slot) {
   return false;
 }
 /* Because of presets, categories are not always 1 */
-function countCategories(response) {
+function countCategories (response) {
   let categ = {};
   for (let offer of response.offers) {
     let item = offer.items[0]; // only the first item can have presets
@@ -99,7 +102,7 @@ function countCategories(response) {
   }
   response.categories = categ;
 }
-function getOffers(sessionID, request) {
+function getOffers (sessionID, request) {
   //if its traders items, just a placeholder it will be handled differently later
   if (request.offerOwnerType ===  1) {
     return getOffersFromTraders(sessionID, request);
@@ -142,61 +145,45 @@ function getOffers(sessionID, request) {
   countCategories(response);
   return response;
 }
-function getOffersFromTraders(sessionID, request)
-{
+function getOffersFromTraders (sessionID, request) {
   let jsonToReturn = fileIO.readParsed(db.user.cache.ragfair_offers);
   let offersFilters = []; //this is an array of item tpl who filter only items to show
   jsonToReturn.categories = {};
-  for(let offerC of jsonToReturn.offers)
-  {
+  for(let offerC of jsonToReturn.offers) {
     jsonToReturn.categories[offerC.items[0]._tpl] = 1;
   }
-  if (request.buildCount)
-  {
+  if (request.buildCount) {
     // Case: weapon builds
     offersFilters = Object.keys(request.buildItems) ;
     jsonToReturn = fillCatagories(jsonToReturn,offersFilters);
-  }
-  else
-  {
+  } else {
     // Case: search
-    if (request.linkedSearchId)
-    {
+    if (request.linkedSearchId) {
       //offersFilters.concat( getLinkedSearchList(request.linkedSearchId) );
       offersFilters = [...offersFilters, ...getLinkedSearchList(request.linkedSearchId) ];
       jsonToReturn = fillCatagories(jsonToReturn,offersFilters);
-    }
-    else if (request.neededSearchId)
-    {
+    } else if (request.neededSearchId) {
       offersFilters = [...offersFilters, ...getNeededSearchList(request.neededSearchId) ];
       jsonToReturn = fillCatagories(jsonToReturn,offersFilters);
     }
-    if(request.removeBartering == true)
-    {
+    if(request.removeBartering == true) {
       jsonToReturn = removeBarterOffers(jsonToReturn);
       jsonToReturn = fillCatagories(jsonToReturn,offersFilters);
     }
     // Case: category
-    if (request.handbookId)
-    {
+    if (request.handbookId) {
       let handbookList = getCategoryList(request.handbookId);
-      if (offersFilters.length)
-      {
+      if (offersFilters.length) {
         offersFilters = helper_f.arrayIntersect(offersFilters, handbookList);
-      }
-      else
-      {
+      } else {
         offersFilters = handbookList;
       }
     }
   }
   let offersToKeep = [];
-  for(let offer in jsonToReturn.offers)
-  {
-    for(let tplTokeep of offersFilters)
-    {
-      if(jsonToReturn.offers[offer].items[0]._tpl == tplTokeep)
-      {
+  for(let offer in jsonToReturn.offers) {
+    for(let tplTokeep of offersFilters) {
+      if(jsonToReturn.offers[offer].items[0]._tpl == tplTokeep) {
         jsonToReturn.offers[offer].summaryCost = calculateCost(jsonToReturn.offers[offer].requirements);
         // check if offer is really available, removes any quest locked items not in current assort of a trader
         let tmpOffer = jsonToReturn.offers[offer];
@@ -217,38 +204,32 @@ function getOffersFromTraders(sessionID, request)
   jsonToReturn.offers = sortOffers(request, jsonToReturn.offers);
   return jsonToReturn;
 }
-function fillCatagories(response,filters)
-{
+function fillCatagories (response,filters) {
   response.categories = {};
-  for(let filter of filters)
-  {
+  for(let filter of filters) {
     response.categories[filter] = 1;
   }
   return response;
 }
-function removeBarterOffers(response)
-{
+function removeBarterOffers (response) {
   let override = [];
-  for(let offer of response.offers)
-  {
-    if( helper_f.isMoneyTpl(offer.requirements[0]._tpl) == true )
-    {
+  for(let offer of response.offers) {
+    if( helper_f.isMoneyTpl(offer.requirements[0]._tpl) == true ) {
       override.push(offer);
     }
   }
   response.offers = override;
   return response;
 }
-function calculateCost(barter_scheme)//theorical , not tested not implemented
+function calculateCost (barter_scheme)//theorical , not tested not implemented
 {
   let summaryCost = 0;
-  for(let barter of barter_scheme)
-  {
+  for(let barter of barter_scheme) {
     summaryCost += helper_f.getTemplatePrice(barter._tpl) * barter.count;
   }
   return Math.round(summaryCost);
 }
-function getLinkedSearchList(linkedSearchId) {
+function getLinkedSearchList (linkedSearchId) {
   let item = global._database.items[linkedSearchId];
   // merging all possible filters without duplicates
   let result = new Set([
@@ -258,7 +239,7 @@ function getLinkedSearchList(linkedSearchId) {
   ]);
   return Array.from(result);
 }
-function getNeededSearchList(neededSearchId) {
+function getNeededSearchList (neededSearchId) {
   let result = [];
   for (let item of Object.values(global._database.items)) {
     if (isInFilter(neededSearchId, item, 'Slots')
@@ -269,7 +250,7 @@ function getNeededSearchList(neededSearchId) {
   }
   return result;
 }
-function getCategoryList(handbookId) {
+function getCategoryList (handbookId) {
   let result = [];
   // if its "mods" great-parent category, do double recursive loop
   if (handbookId === '5b5f71a686f77447ed5636ab') {
@@ -292,7 +273,7 @@ function getCategoryList(handbookId) {
   }
   return result;
 }
-function createOffer(template, onlyFunc, usePresets = true) {
+function createOffer (template, onlyFunc, usePresets = true) {
   // Some slot filters reference bad items
   if (!(template in global._database.items)) {
     logger.logWarning(`Item ${template} does not exist`);
@@ -332,10 +313,10 @@ function createOffer(template, onlyFunc, usePresets = true) {
   }
   return offers;
 }
-function itemMarKetPrice(request) {
+function itemMarKetPrice (request) {
   return null;
 }
-function ragFairAddOffer(request) {
+function ragFairAddOffer (request) {
   return null;
 }
 module.exports.getOffers = getOffers;

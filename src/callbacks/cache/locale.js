@@ -5,7 +5,7 @@ exports.cache = () => {
   for (let locale in db.locales) {
     let base = { 'interface': {}, 'enum': [], 'error': {}, 'mail': {}, 'quest': {}, 'preset': {}, 'handbook': {}, 'season': {}, 'templates': {}, 'locations': {}, 'banners': {}, 'trading': {}};
     let inputNode = db.locales[locale];
-    if(fileIO.exist(`./db/locales/${locale}/locale.json`)){
+    if(fileIO.exist(`./db/locales/${locale}/locale.json`)) {
       logger.logInfo(`Caching: locale_${locale}.json(1) + locale_menu_${locale}.json`);
       // Loading from 1 file
       base = fileIO.readParsed(`./db/locales/${locale}/locale.json`);

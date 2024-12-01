@@ -1,5 +1,5 @@
 'use strict';
-function foldItem(pmcData, body, sessionID) {
+function foldItem (pmcData, body, sessionID) {
   for (let item of pmcData.Inventory.items) {
     if (item._id && item._id === body.item) {
       item.upd.Foldable = {'Folded': body.value};
@@ -8,7 +8,7 @@ function foldItem(pmcData, body, sessionID) {
   }
   return '';
 }
-function toggleItem(pmcData, body, sessionID) {
+function toggleItem (pmcData, body, sessionID) {
   for (let item of pmcData.Inventory.items) {
     if (item._id && item._id === body.item) {
       item.upd.Togglable = {'On': body.value};
@@ -17,7 +17,7 @@ function toggleItem(pmcData, body, sessionID) {
   }
   return '';
 }
-function tagItem(pmcData, body, sessionID) {
+function tagItem (pmcData, body, sessionID) {
   for (let item of pmcData.Inventory.items) {
     if (item._id === body.item) {
       if (item.upd !== null &&
@@ -40,7 +40,7 @@ function tagItem(pmcData, body, sessionID) {
   }
   return '';
 }
-function bindItem(pmcData, body, sessionID) {
+function bindItem (pmcData, body, sessionID) {
   for (let index in pmcData.Inventory.fastPanel) {
     if (pmcData.Inventory.fastPanel[index] === body.item) {
       pmcData.Inventory.fastPanel[index] = '';
@@ -49,7 +49,7 @@ function bindItem(pmcData, body, sessionID) {
   pmcData.Inventory.fastPanel[body.index] = body.item;
   return item_f.handler.getOutput();
 }
-function examineItem(pmcData, body, sessionID) {
+function examineItem (pmcData, body, sessionID) {
   let itemID = '';
   let pmcItems = pmcData.Inventory.items;
   // outside player profile
@@ -94,7 +94,7 @@ function examineItem(pmcData, body, sessionID) {
     return '';
   }
   // item found
-  if(typeof global._database.items[itemID] == 'undefined'){
+  if(typeof global._database.items[itemID] == 'undefined') {
     logger.logError(`file not found with id: ${itemID}`);
   }
   let item = global._database.items[itemID];
@@ -103,13 +103,13 @@ function examineItem(pmcData, body, sessionID) {
   //logger.logSuccess(`EXAMINED: ${itemID}`);
   return item_f.handler.getOutput();
 }
-function readEncyclopedia(pmcData, body, sessionID) {
+function readEncyclopedia (pmcData, body, sessionID) {
   for (let id of body.ids) {
     pmcData.Encyclopedia[id] = true;
   }
   return item_f.handler.getOutput();
 }
-function handleMapMarker(pmcData, body, sessionID) {
+function handleMapMarker (pmcData, body, sessionID) {
   for (let k in pmcData.Inventory.items) {
     let curritem = pmcData.Inventory.items[k];
     if (curritem._id === body.item) {

@@ -1,6 +1,6 @@
 'use strict';
 /* A reverse lookup for templates */
-function tplLookup() {
+function tplLookup () {
   if (tplLookup.lookup === undefined) {
     const lookup = {
       items: {
@@ -28,31 +28,30 @@ function tplLookup() {
   }
   return tplLookup.lookup;
 }
-function getTemplatePrice(x) {
+function getTemplatePrice (x) {
   return (x in tplLookup().items.byId) ? tplLookup().items.byId[x] : 1;
 }
 /* all items in template with the given parent category */
-function templatesWithParent(x) {
+function templatesWithParent (x) {
   return (x in tplLookup().items.byParent) ? tplLookup().items.byParent[x] : [];
 }
-function isCategory(x) {
+function isCategory (x) {
   return x in tplLookup().categories.byId;
 }
-function childrenCategories(x) {
+function childrenCategories (x) {
   return (x in tplLookup().categories.byParent) ? tplLookup().categories.byParent[x] : [];
 }
 /* Made a 2d array table with 0 - free slot and 1 - used slot
 * input: PlayerData
 * output: table[y][x]
 * */
-function recheckInventoryFreeSpace(pmcData, sessionID) { // recalculate stash taken place
+function recheckInventoryFreeSpace (pmcData, sessionID) { // recalculate stash taken place
   let PlayerStash = getPlayerStash(sessionID);
   let Stash2D = Array(PlayerStash[1]).fill(0).map(x => Array(PlayerStash[0]).fill(0));
   let inventoryItemHash = getInventoryItemHash(pmcData.Inventory.items);
   if(!inventoryItemHash.byParentId[pmcData.Inventory.stash])
     inventoryItemHash.byParentId[pmcData.Inventory.stash] = [];
-  for (let item of inventoryItemHash.byParentId[pmcData.Inventory.stash])
-  {
+  for (let item of inventoryItemHash.byParentId[pmcData.Inventory.stash]) {
     if (!('location' in item)) {
       continue;
     }
@@ -62,8 +61,7 @@ function recheckInventoryFreeSpace(pmcData, sessionID) { // recalculate stash ta
     let fH = ((item.location.r === 1 || item.location.r === 'Vertical' || item.location.rotation === 'Vertical') ? iW : iH);
     let fW = ((item.location.r === 1 || item.location.r === 'Vertical' || item.location.rotation === 'Vertical') ? iH : iW);
     let fillTo = item.location.x + fW;
-    for (let y = 0; y < fH; y++)
-    {
+    for (let y = 0; y < fH; y++) {
       // fixed filling out of bound
       //if (item.location.y + y >= PlayerStash[1] && fillTo >= PlayerStash[0])
       //{
@@ -78,7 +76,7 @@ function recheckInventoryFreeSpace(pmcData, sessionID) { // recalculate stash ta
   }
   return Stash2D;
 }
-function isMoneyTpl(tpl) {
+function isMoneyTpl (tpl) {
   const moneyTplArray = ['569668774bdc2da2298b4568', '5696686a4bdc2da3298b456a', '5449016a4bdc2d6f028b456f'];
   return moneyTplArray.findIndex(moneyTlp => moneyTlp === tpl) > -1;
 }
@@ -86,7 +84,7 @@ function isMoneyTpl(tpl) {
 * input: currency(tag)
 * output: template ID
 * */
-function getCurrency(currency) {
+function getCurrency (currency) {
   switch (currency) {
   case 'EUR':
     return '569668774bdc2da2298b4568';
@@ -100,18 +98,18 @@ function getCurrency(currency) {
 * input:  value, currency tpl
 * output: value after conversion
 */
-function inRUB(value, currency) {
+function inRUB (value, currency) {
   return Math.round(value * getTemplatePrice(currency));
 }
 /* Gets Ruble to Currency conversion Value
 * input: value, currency tpl
 * output: value after conversion
 * */
-function fromRUB(value, currency) {
+function fromRUB (value, currency) {
   return Math.round(value / getTemplatePrice(currency));
 }
 /* Generate a payment body based off of a scheme_items */
-function createPaymentBody(body, stacks) {
+function createPaymentBody (body, stacks) {
   let retval = body;
   x: for (let k in body.scheme_items) {
     let count = body.scheme_items[k].count;
@@ -138,7 +136,7 @@ function createPaymentBody(body, stacks) {
 * input:
 * output: boolean
 * */
-function payMoney(pmcData, body, sessionID) {
+function payMoney (pmcData, body, sessionID) {
   let output = item_f.handler.getOutput();
   let trader = trader_f.handler.getTrader(body.tid, sessionID);
   let currencyTpl = getCurrency(trader.currency);
@@ -212,7 +210,7 @@ function payMoney(pmcData, body, sessionID) {
 * input: object of player data, string BarteredItem ID
 * output: array of Item from inventory
 * */
-function findMoney(by, pmcData, barter_itemID) { // find required items to take after buying (handles multiple items)
+function findMoney (by, pmcData, barter_itemID) { // find required items to take after buying (handles multiple items)
   const barterIDs = typeof barter_itemID === 'string' ? [barter_itemID] : barter_itemID;
   let itemsArray = [];
   for (const barterID of barterIDs) {
@@ -226,7 +224,7 @@ function findMoney(by, pmcData, barter_itemID) { // find required items to take 
 /*
 * Finds an item given its id using linear search
 */
-function findItemById(items, id) {
+function findItemById (items, id) {
   for (let item of items) {
     if (item._id === id) {
       return item;
@@ -239,7 +237,7 @@ function findItemById(items, id) {
 * input : character data, item id from inventory
 * output : the whole item object, false if not found
 */
-function findInventoryItemById(pmcData, idToFind) {
+function findInventoryItemById (pmcData, idToFind) {
   for (let item of pmcData.Inventory.items) {
     if (item._id == idToFind) {
       return item;
@@ -251,7 +249,7 @@ function findInventoryItemById(pmcData, idToFind) {
 * inside the stash, that is it has the stash as
 * ancestor with slotId=hideout
 */
-function isItemInStash(pmcData, item) {
+function isItemInStash (pmcData, item) {
   let container = item;
   while ('parentId' in container) {
     if (container.parentId === pmcData.Inventory.stash && container.slotId === 'hideout') {
@@ -268,7 +266,7 @@ function isItemInStash(pmcData, item) {
 * input: pmcData, numberToReturn, request.body,
 * output: none (output is sended to item.js, and profile is saved to file)
 * */
-function getMoney(pmcData, amount, body, output, sessionID) {
+function getMoney (pmcData, amount, body, output, sessionID) {
   let trader = trader_f.handler.getTrader(body.tid, sessionID);
   let currency = getCurrency(trader.currency);
   let calcAmount = fromRUB(inRUB(amount, currency), currency);
@@ -343,7 +341,7 @@ function getMoney(pmcData, amount, body, output, sessionID) {
 * input: null
 * output: [stashSizeWidth, stashSizeHeight]
 * */
-function getPlayerStash(sessionID) { //this sets automaticly a stash size from items.json (its not added anywhere yet cause we still use base stash)
+function getPlayerStash (sessionID) { //this sets automaticly a stash size from items.json (its not added anywhere yet cause we still use base stash)
   let stashTPL = profile_f.getStashType(sessionID);
   let stashX = (global._database.items[stashTPL]._props.Grids[0]._props.cellsH !== 0) ? global._database.items[stashTPL]._props.Grids[0]._props.cellsH : 10;
   let stashY = (global._database.items[stashTPL]._props.Grids[0]._props.cellsV !== 0) ? global._database.items[stashTPL]._props.Grids[0]._props.cellsV : 66;
@@ -353,13 +351,13 @@ function getPlayerStash(sessionID) { //this sets automaticly a stash size from i
 * input: Item Template ID
 * output: [ItemFound?(true,false), itemData]
 * */
-function getItem(template) { // -> Gets item from <input: _tpl>
+function getItem (template) { // -> Gets item from <input: _tpl>
   if (template in global._database.items) {
     return [true, global._database.items[template]];
   }
   return [false, {}];
 }
-function getInventoryItemHash(InventoryItem) {
+function getInventoryItemHash (InventoryItem) {
   let inventoryItemHash = {
     byItemId: {},
     byParentId: {}
@@ -382,7 +380,7 @@ note from 2027: there IS a thing i didn't explore and that is Merges With Childr
 note from Maoci: you can merge and split items from parent-childrens
 -> Prepares item Width and height returns [sizeX, sizeY]
 */
-function getSizeByInventoryItemHash(itemtpl, itemID, inventoryItemHash) {
+function getSizeByInventoryItemHash (itemtpl, itemID, inventoryItemHash) {
   let toDo = [itemID];
   let tmpItem = getItem(itemtpl)[1];
   let rootItem = inventoryItemHash.byItemId[itemID];
@@ -443,10 +441,10 @@ function getSizeByInventoryItemHash(itemtpl, itemID, inventoryItemHash) {
 * List is backward first item is the furthest child and last item is main item
 * returns all child items ids in array, includes itself and children
 * */
-function findAndReturnChildren(pmcData, itemID) {
+function findAndReturnChildren (pmcData, itemID) {
   return findAndReturnChildrenByItems(pmcData.Inventory.items, itemID);
 }
-function findAndReturnChildrenByItems(items, itemID) {
+function findAndReturnChildrenByItems (items, itemID) {
   let list = [];
   for (let childitem of items) {
     if (childitem.parentId === itemID) {
@@ -461,7 +459,7 @@ function findAndReturnChildrenByItems(items, itemID) {
 * Input: Array of item objects, root item ID.
 * Output: Array of item objects containing root item and its children.
 */
-function findAndReturnChildrenAsItems(items, itemID) {
+function findAndReturnChildrenAsItems (items, itemID) {
   let list = [];
   for (let childitem of items) {
     // Include itself.
@@ -481,23 +479,23 @@ function findAndReturnChildrenAsItems(items, itemID) {
 * Checks if an item is a dogtag. Used under profile_f.js to modify preparePrice based
 * on the level of the dogtag
 */
-function isDogtag(itemId) {
+function isDogtag (itemId) {
   return itemId === '59f32bb586f774757e1e8442' || itemId === '59f32c3b86f77472a31742f0';
 }
-function isNotSellable(itemid) {
+function isNotSellable (itemid) {
   return '544901bf4bdc2ddf018b456d' === itemid ||
         '5449016a4bdc2d6f028b456f' === itemid ||
         '569668774bdc2da2298b4568' === itemid ||
         '5696686a4bdc2da3298b456a' === itemid;
 }
 /* Gets the identifier for a child using slotId, locationX and locationY. */
-function getChildId(item) {
+function getChildId (item) {
   if (!('location' in item)) {
     return item.slotId;
   }
   return item.slotId + ',' + item.location.x + ',' + item.location.y;
 }
-function replaceIDs(pmcData, items, fastPanel = null) {
+function replaceIDs (pmcData, items, fastPanel = null) {
   // replace bsg shit long ID with proper one
   let string_inventory = fileIO.stringify(items);
   for (let item of items) {
@@ -581,7 +579,7 @@ function replaceIDs(pmcData, items, fastPanel = null) {
 *  input: an item
 *  output: an array of these items with StackObjectsCount <= StackMaxSize
 */
-function splitStack(item) {
+function splitStack (item) {
   if (!('upd' in item) || !('StackObjectsCount' in item.upd)) {
     return [item];
   }
@@ -597,16 +595,16 @@ function splitStack(item) {
   }
   return stacks;
 }
-function clone(x) {
+function clone (x) {
   return fileIO.parse(fileIO.stringify(x));
 }
-function arrayIntersect(a, b) {
+function arrayIntersect (a, b) {
   return a.filter(x => b.includes(x));
 }
 // Searching for first item template ID and for preset ID
-function getPreset (id){
+function getPreset (id) {
   let itmPreset = global._database.globals.ItemPresets[id];
-  if(typeof itmPreset == 'undefined'){
+  if(typeof itmPreset == 'undefined') {
     /* this was causing an error where preset id couldnt be found on the client and caused client stop loading map...
 		for(let itemP in global._database.globals.ItemPresets){
 			if(global._database.globals.ItemPresets[itemP]._items[0]._tpl == id){
@@ -614,7 +612,7 @@ function getPreset (id){
 				break;
 			}
 		}*/
-    if(typeof itmPreset == 'undefined'){
+    if(typeof itmPreset == 'undefined') {
       logger.logWarning('Preset of id: ' + id + ' not found on a list (this warning is not important)');
       return null;
     }
@@ -625,15 +623,12 @@ module.exports.getContainerMap = (containerW, containerH, itemList, containerId)
   const container2D = Array(containerH).fill(0).map(() => Array(containerW).fill(0));
   const inventoryItemHash = helper_f.getInventoryItemHash(itemList);
   const containerItemHash = inventoryItemHash.byParentId[containerId];
-  if (!containerItemHash)
-  {
+  if (!containerItemHash) {
     // No items in the container
     return container2D;
   }
-  for (const item of containerItemHash)
-  {
-    if (!('location' in item))
-    {
+  for (const item of containerItemHash) {
+    if (!('location' in item)) {
       continue;
     }
     const tmpSize = helper_f.getSizeByInventoryItemHash(item._tpl, item._id, inventoryItemHash);
@@ -642,14 +637,10 @@ module.exports.getContainerMap = (containerW, containerH, itemList, containerId)
     const fH = ((item.location.r === 1 || item.location.r === 'Vertical' || item.location.rotation === 'Vertical') ? iW : iH);
     const fW = ((item.location.r === 1 || item.location.r === 'Vertical' || item.location.rotation === 'Vertical') ? iH : iW);
     const fillTo = item.location.x + fW;
-    for (let y = 0; y < fH; y++)
-    {
-      try
-      {
+    for (let y = 0; y < fH; y++) {
+      try {
         container2D[item.location.y + y].fill(1, item.location.x, fillTo);
-      }
-      catch (e)
-      {
+      } catch (e) {
         logger.logError(`[OOB] for item with id ${item._id}; Error message: ${e}`);
       }
     }
@@ -660,16 +651,11 @@ module.exports.getContainerMap = (containerW, containerH, itemList, containerId)
 module.exports.fillContainerMapWithItem = (container2D, x, y, itemW, itemH, rotate) => {
   let itemWidth = rotate ? itemH : itemW;
   let itemHeight = rotate ? itemW : itemH;
-  for (let tmpY = y; tmpY < y + itemHeight; tmpY++)
-  {
-    for (let tmpX = x; tmpX < x + itemWidth; tmpX++)
-    {
-      if (container2D[tmpY][tmpX] === 0)
-      {
+  for (let tmpY = y; tmpY < y + itemHeight; tmpY++) {
+    for (let tmpX = x; tmpX < x + itemWidth; tmpX++) {
+      if (container2D[tmpY][tmpX] === 0) {
         container2D[tmpY][tmpX] = 1;
-      }
-      else
-      {
+      } else {
         logger.throwErr(`Slot at (${x}, ${y}) is already filled`, 'src/classes/helper.js 734');
       }
     }
@@ -683,23 +669,19 @@ module.exports.findSlotForItem = (container2D, itemWidth, itemHeight) => {
   let containerX = container2D[0].length;
   let limitY = containerY - minVolume;
   let limitX = containerX - minVolume;
-  let locateSlot = (x, y, itemW, itemH) =>
-  {
+  let locateSlot = (x, y, itemW, itemH) => {
     let foundSlot = true;
     for (let itemY = 0; itemY < itemH; itemY++) {
-      if (foundSlot && y + itemH > containerY)
-      {
+      if (foundSlot && y + itemH > containerY) {
         foundSlot = false;
         break;
       }
       for (let itemX = 0; itemX < itemW; itemX++) {
-        if (foundSlot && x + itemW > containerX)
-        {
+        if (foundSlot && x + itemW > containerX) {
           foundSlot = false;
           break;
         }
-        if (container2D[y + itemY][x + itemX] !== 0)
-        {
+        if (container2D[y + itemY][x + itemX] !== 0) {
           foundSlot = false;
           break;
         }
@@ -715,8 +697,7 @@ module.exports.findSlotForItem = (container2D, itemWidth, itemHeight) => {
       /**Try to rotate if there is enough room for the item
 			 * Only occupies one grid of items, no rotation required
 			 * */
-      if (!foundSlot && itemWidth * itemHeight > 1)
-      {
+      if (!foundSlot && itemWidth * itemHeight > 1) {
         foundSlot = locateSlot(x, y, itemHeight, itemWidth);
         if (foundSlot)
           rotation = true;
@@ -744,16 +725,13 @@ module.exports.getInventoryItemHash = (InventoryItem) => {
     byItemId: {},
     byParentId: {}
   };
-  for (let i = 0; i < InventoryItem.length; i++)
-  {
+  for (let i = 0; i < InventoryItem.length; i++) {
     let item = InventoryItem[i];
     inventoryItemHash.byItemId[item._id] = item;
-    if (!('parentId' in item))
-    {
+    if (!('parentId' in item)) {
       continue;
     }
-    if (!(item.parentId in inventoryItemHash.byParentId))
-    {
+    if (!(item.parentId in inventoryItemHash.byParentId)) {
       inventoryItemHash.byParentId[item.parentId] = [];
     }
     inventoryItemHash.byParentId[item.parentId].push(item);
@@ -765,10 +743,8 @@ module.exports.getPlayerStashSlotMap = (sessionID, pmcData) => {
   let PlayerStashSize = getPlayerStash(sessionID);
   let Stash2D = Array(PlayerStashSize[1]).fill(0).map(x => Array(PlayerStashSize[0]).fill(0));
   let inventoryItemHash = helper_f.getInventoryItemHash(pmcData.Inventory.items);
-  for (let item of inventoryItemHash.byParentId[pmcData.Inventory.stash])
-  {
-    if (!('location' in item))
-    {
+  for (let item of inventoryItemHash.byParentId[pmcData.Inventory.stash]) {
+    if (!('location' in item)) {
       continue;
     }
     let tmpSize = helper_f.getSizeByInventoryItemHash(item._tpl, item._id, inventoryItemHash);
@@ -777,14 +753,10 @@ module.exports.getPlayerStashSlotMap = (sessionID, pmcData) => {
     let fH = ((item.location.r === 1 || item.location.r === 'Vertical' || item.location.rotation === 'Vertical') ? iW : iH);
     let fW = ((item.location.r === 1 || item.location.r === 'Vertical' || item.location.rotation === 'Vertical') ? iH : iW);
     let fillTo = item.location.x + fW;
-    for (let y = 0; y < fH; y++)
-    {
-      try
-      {
+    for (let y = 0; y < fH; y++) {
+      try {
         Stash2D[item.location.y + y].fill(1, item.location.x, fillTo);
-      }
-      catch (e)
-      {
+      } catch (e) {
         logger.logError(`[OOB] for item with id ${item._id}; Error message: ${e}`);
       }
     }
@@ -818,21 +790,15 @@ module.exports.getSizeByInventoryItemHash = (itemtpl, itemID, inventoryItemHash)
   let skipThisItems = ['5448e53e4bdc2d60728b4567', '566168634bdc2d144c8b456c', '5795f317245977243854e041'];
   let rootFolded = rootItem.upd && rootItem.upd.Foldable && rootItem.upd.Foldable.Folded === true;
   //The item itself is collapsible
-  if (FoldableWeapon && (FoldedSlot === undefined || FoldedSlot === '') && rootFolded)
-  {
+  if (FoldableWeapon && (FoldedSlot === undefined || FoldedSlot === '') && rootFolded) {
     outX -= tmpItem._props.SizeReduceRight;
   }
-  if (!skipThisItems.includes(tmpItem._parent))
-  {
-    while (toDo.length > 0)
-    {
-      if (toDo[0] in inventoryItemHash.byParentId)
-      {
-        for (let item of inventoryItemHash.byParentId[toDo[0]])
-        {
+  if (!skipThisItems.includes(tmpItem._parent)) {
+    while (toDo.length > 0) {
+      if (toDo[0] in inventoryItemHash.byParentId) {
+        for (let item of inventoryItemHash.byParentId[toDo[0]]) {
           //Filtering child items outside of mod slots, such as those inside containers, without counting their ExtraSize attribute
-          if (item.slotId.indexOf('mod_') < 0)
-          {
+          if (item.slotId.indexOf('mod_') < 0) {
             continue;
           }
           toDo.push(item._id);
@@ -840,24 +806,18 @@ module.exports.getSizeByInventoryItemHash = (itemtpl, itemID, inventoryItemHash)
           let itm = helper_f.getItem(item._tpl)[1];
           let childFoldable = itm._props.Foldable;
           let childFolded = item.upd && item.upd.Foldable && item.upd.Foldable.Folded === true;
-          if (FoldableWeapon && FoldedSlot === item.slotId && (rootFolded || childFolded))
-          {
+          if (FoldableWeapon && FoldedSlot === item.slotId && (rootFolded || childFolded)) {
             continue;
-          }
-          else if (childFoldable && rootFolded && childFolded)
-          {
+          } else if (childFoldable && rootFolded && childFolded) {
             continue;
           }
           // Calculating child ExtraSize
-          if (itm._props.ExtraSizeForceAdd === true)
-          {
+          if (itm._props.ExtraSizeForceAdd === true) {
             ForcedUp += itm._props.ExtraSizeUp;
             ForcedDown += itm._props.ExtraSizeDown;
             ForcedLeft += itm._props.ExtraSizeLeft;
             ForcedRight += itm._props.ExtraSizeRight;
-          }
-          else
-          {
+          } else {
             SizeUp = (SizeUp < itm._props.ExtraSizeUp) ? itm._props.ExtraSizeUp : SizeUp;
             SizeDown = (SizeDown < itm._props.ExtraSizeDown) ? itm._props.ExtraSizeDown : SizeDown;
             SizeLeft = (SizeLeft < itm._props.ExtraSizeLeft) ? itm._props.ExtraSizeLeft : SizeLeft;

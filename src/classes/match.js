@@ -1,6 +1,6 @@
 'use strict';
 class MatchServer {
-  constructor() {
+  constructor () {
     /* this.servers = {}; */
     this.locations = {};
   }
@@ -19,10 +19,10 @@ class MatchServer {
         return "OK";
     }
 */
-  getEnabled() {
+  getEnabled () {
     return global._database.gameplayConfig.match.enabled;
   }
-  getProfile(info) {
+  getProfile (info) {
     if (info.profileId.includes('pmcAID')) {
       return profile_f.handler.getCompleteProfile(info.profileId.replace('pmcAID', 'AID'));
     }
@@ -31,10 +31,10 @@ class MatchServer {
     }
     return null;
   }
-  getMatch(location) {
+  getMatch (location) {
     return {'id': 'TEST', 'ip': '127.0.0.1', 'port': 5000};
   }
-  joinMatch(info, sessionID) {
+  joinMatch (info, sessionID) {
     let match = this.getMatch(info.location);
     let output = [];
     // --- LOOP (DO THIS FOR EVERY PLAYER IN GROUP)
@@ -52,15 +52,15 @@ class MatchServer {
     // ---
     return output;
   }
-  getGroupStatus(info) {
+  getGroupStatus (info) {
     return {'players': [], 'invite': [], 'group': []};
   }
-  createGroup(sessionID, info) {
+  createGroup (sessionID, info) {
     let groupID = 'test';
     this.locations[info.location].groups[groupID] = {'_id': groupID, 'owner': 'pmc' + sessionID, 'location': info.location, 'gameVersion': 'live', 'region': 'EUR', 'status': 'wait', 'isSavage': false, 'timeShift': 'CURR', 'dt': utility.getTimestamp(), 'players': [{'_id': 'pmc' + sessionID, 'region': 'EUR', 'ip': '127.0.0.1', 'savageId': 'scav' + sessionID, 'accessKeyId': ''}], 'customDataCenter': []};
     return this.locations[info.location].groups[groupID];
   }
-  deleteGroup(info) {
+  deleteGroup (info) {
     for (let locationID in this.locations) {
       for (let groupID in this.locations[locationID].groups) {
         if (groupID === info.groupId) {

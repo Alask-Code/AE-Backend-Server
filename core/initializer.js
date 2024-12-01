@@ -1,6 +1,5 @@
-class Initializer
-{
-  constructor() {
+class Initializer {
+  constructor () {
     this.initializeCore();
     this.initializeExceptions();
     this.initializeClasses();
@@ -10,7 +9,7 @@ class Initializer
     server.start();
   }
   /* load core functionality */
-  initializeCore() {
+  initializeCore () {
     global.internal = {};
     global.core = {};
     global.db = {}; // used only for caching
@@ -44,7 +43,7 @@ class Initializer
     global.server = (require('./server/server.js').server);
   }
   /* load exception handler */
-  initializeExceptions() {
+  initializeExceptions () {
     internal.process.on('uncaughtException', (error, promise) => {
       logger.logError('[Server]:' + server.getVersion());
       logger.logError('[Trace]:');
@@ -52,25 +51,25 @@ class Initializer
     });
   }
   /* load loadorder from cache */
-  initializeItemRoute() {
+  initializeItemRoute () {
     logger.logSuccess('Create: Item Action Callbacks');
     // Load Item Route's
     item_f.handler.updateRouteStruct();
     let itemHandlers = '';
-    for(let iRoute in item_f.handler.routeStructure){
+    for(let iRoute in item_f.handler.routeStructure) {
       itemHandlers += iRoute + ', ';
       item_f.handler.addRoute(iRoute, item_f.handler.routeStructure[iRoute]);
     }
     logger.logInfo('[Actions] ' + itemHandlers.slice(0, -2));
   }
   /* load classes */
-  initializeClasses() {
+  initializeClasses () {
     logger.logSuccess('Create: Classes as global variables');
     let path = executedDir + '/src/classes';
     let files = fileIO.readDir(path);
     let loadedModules = '';
     global['helper_f'] = require(executedDir + '/src/classes/helper.js');
-    for(let file of files){
+    for(let file of files) {
       loadedModules += file.replace('.js',', ');
       if(file === 'helper.js') continue;
       let name = file.replace('.js','').toLowerCase() + '_f';
