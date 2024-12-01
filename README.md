@@ -35,8 +35,6 @@ This is the backend server for the game **Altered Escape 2**, responsible for da
 - **`node-minify`** -  (3.6.0)  
   Used to minify JavaScript, CSS, and HTML files, reducing file size for better performance in production.
 
-- **`child_process`** -  (1.0.2)  
-  Allows executing child processes within Node.js, useful for interacting with system commands or external scripts.
 
 ## Scripts
 

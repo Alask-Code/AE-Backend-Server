@@ -1,6 +1,5 @@
 const fs = require('fs');
 const cp = require('node:child_process');
-const childProcess = require('child_process');
 const UPX = require('upx')('better');
 const { compile } = require('nexe');
 function sleep (ms) {
@@ -36,7 +35,7 @@ function compileBuild () {
         UPX('Server-Icon.exe')
           .output('Server.exe')
           .start().then(function (stats) {
-            console.log(stats);
+            // console.log(stats);
             console.log('\x1b[32m√ Server Compressed!\x1b[0m');
           }).finally(() => {
             resolve();
