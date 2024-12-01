@@ -221,8 +221,7 @@ function removeBarterOffers (response) {
   response.offers = override;
   return response;
 }
-function calculateCost (barter_scheme)//theorical , not tested not implemented
-{
+function calculateCost (barter_scheme) { //theorical , not tested not implemented
   let summaryCost = 0;
   for(let barter of barter_scheme) {
     summaryCost += helper_f.getTemplatePrice(barter._tpl) * barter.count;

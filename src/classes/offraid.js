@@ -59,9 +59,7 @@ function markFoundItems (pmcData, profile, isPlayerScav) {
           if ('upd' in item && 'SpawnedInSession' in item.upd) {
             // tests if offraidItem has the "upd" property. If it exists it copies the previous FIR status if not it creates a new "upd" property with that FIR status
             (Object.getOwnPropertyDescriptor(offraidItem, 'upd') !== undefined) ? Object.assign(offraidItem.upd, {'SpawnedInSession': item.upd.SpawnedInSession}) : Object.assign(offraidItem, {'upd': {'SpawnedInSession': item.upd.SpawnedInSession}});	// overwrite SpawnedInSession value with previous item value or create new value
-          }
-          // FIR status not found - delete offraidItem's SpawnedInSession if it exists
-          else if ('upd' in offraidItem && 'SpawnedInSession' in offraidItem.upd) {
+          } else if ('upd' in offraidItem && 'SpawnedInSession' in offraidItem.upd) { // FIR status not found - delete offraidItem's SpawnedInSession if it exists
             delete offraidItem.upd.SpawnedInSession;
           }
           break;

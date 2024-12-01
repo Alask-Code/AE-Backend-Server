@@ -90,8 +90,7 @@ function updatePlayerHideout (sessionID) {
         if (recipe.continuous == true) {
           needGenerator = true;
         }
-        if (pmcData.Hideout.Production[prod].RecipeId == '5d5c205bd582a50d042a3c0e') //if its btcFarm
-        {
+        if (pmcData.Hideout.Production[prod].RecipeId == '5d5c205bd582a50d042a3c0e') { //if its btcFarm
           pmcData.Hideout.Production[prod] = updateBitcoinFarm(pmcData.Hideout.Production[prod], recipe, btcFarmCGs, isGeneratorOn, pmcData);
         } else {
           let time_elapsed = (Math.floor(Date.now() / 1000) - pmcData.Hideout.Production[prod].StartTime) - pmcData.Hideout.Production[prod].Progress;
@@ -172,8 +171,7 @@ function updateFuel (generatorArea, solarPower) {
         logger.logInfo('Generator: ' + resourceValue + ' fuel left on tank slot ' + (i + 1));
         noFuelAtAll = false;
         break; //break here to avoid update all the fuel tanks and only update if fuel Ressource > 0
-      } else //if fuel is empty, remove it
-      {
+      } else { //if fuel is empty, remove it
         generatorArea.slots[i].item[0].upd = {
           'StackObjectsCount': 1,
           'Resource': {
