@@ -1,11 +1,9 @@
-
 function Create_ForcedDynamicStruct(item_data){
   let isStatic = false;
   let useGravity = false;
   let randomRotation = false;
   let position = {x:0,y:0,z:0};
   let rotation = {x:0,y:0,z:0};
-	
   if(typeof item_data.IsStatic != 'undefined')
     isStatic = item_data.IsStatic;
   if(typeof item_data.useGravity != 'undefined')
@@ -48,7 +46,6 @@ function Create_StaticMountedStruct(item_data){
   let randomRotation = false;
   let position = {x:0,y:0,z:0};
   let rotation = {x:0,y:0,z:0};
-	
   if(typeof item_data.IsStatic != 'undefined')
     isStatic = item_data.IsStatic;
   if(typeof item_data.useGravity != 'undefined')
@@ -80,7 +77,6 @@ function Create_StaticMountedStruct(item_data){
     'Items': item_data.Items
   };
 }
-
 exports.cache = () => {
   if (!serverConfig.rebuildCache) {
     return;

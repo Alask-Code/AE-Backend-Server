@@ -14,12 +14,10 @@ function DetectInput(data, name){
       return '<input type=\'number\' step=\'0.001\' size=\'10\' name=\'' + name + '\' value=\'' + data + '\'/>';
     else
       return '<input type=\'number\' size=\'10\' name=\'' + name + '\' value=\'' + data + '\'/>';
-
   return data;
 }
 function PageHeader(content){
   return '<html><head><title>JustEmuTarkov</title><link rel="stylesheet" id="style" href="style.css" type="text/css" media="all"><style>h2{font-size:16px;padding:3px 0 0 10px;margin:0;} h3{font-size:14px;padding:3px 0 0 15px;margin:0;} p{font-size:12px;padding:3px 0 0 25px;margin:0;} body{color:#fff;background:#000} table{border-bottom:1px solid #aaa;} .right{text-align:right;}</style></head><body>'+content+'</body></html>';
-
 }
 module.exports.RenderHomePage = () => {
   let html = '';
@@ -69,7 +67,7 @@ module.exports.RenderGameplayConfigPage = (url_return) => {
     }
     html += '</ul></div>';
   }
-  html += '<div class="twelve columns"><ul><li class=submit><input type="submit" value="Save"></li></ul></div></div></div></form>';	
+  html += '<div class="twelve columns"><ul><li class=submit><input type="submit" value="Save"></li></ul></div></div></div></form>';
   html = PageHeader(html); // adds header and footer + some stypes etc.
   return html;
 };
@@ -100,12 +98,11 @@ module.exports.RenderAccountsConfigPage = (url_return) => {
     }
     html += '<li class=submit><input type=\'submit\' value=\'Save\'></li></ul></form></div>';
   }
-  html += '</div></div>';	
+  html += '</div></div>';
   html = PageHeader(html); // adds header and footer + some stypes etc.
   return html;
 };
 module.exports.RenderServerConfigPage = (url_return) => {
-	
   let data = fileIO.readParsed(db.user.configs.server);
   let html = '<form action="'+url_return+'" method="post" class="form"><div class="container-full"><div class="row">';
   for(let category in data){
@@ -129,7 +126,7 @@ module.exports.RenderServerConfigPage = (url_return) => {
     }
     html += '</ul></div>';
   }
-  html += '</div><div class="row"><div class="twelve columns"><ul><li class=submit><input type="submit" value="Save"></li></ul></div></div></div></form>';	
+  html += '</div><div class="row"><div class="twelve columns"><ul><li class=submit><input type="submit" value="Save"></li></ul></div></div></div></form>';
   html = PageHeader(html); // adds header and footer + some stypes etc.
   return html;
 };
@@ -150,15 +147,12 @@ module.exports.renderPage = () => {
   // loads data
   let data = fileIO.readParsed(db.user.configs.gameplay);
   // render page
-	
   let html = '<div class="container-full"><div class="row">';
   html += 'This is Example Page In HTML<br>';
   html += 'We can add shit to it later, it supports full html/css and javascript as normal website and it has javascript backend';
   html += '</div></div>';//we need to end this with 2 div closing tags
   html = PageHeader(html); // this will render footer and header + some styles title of the page etc.
-
   return html;
-	
 };
 function OutputConvert(data){
   // its not nececerly needed but its ok.
@@ -180,7 +174,6 @@ function OutputConvert(data){
   //if(typeof data === "string")
   return data;
 }
-
 module.exports.processSaveServerData = (data, fileName) => {
   if(JSON.stringify(data) == '{}') return; // if its empty return
   let _data = fileIO.readParsed(fileName);
@@ -227,13 +220,11 @@ module.exports.processSaveAccountsData = (data, fileName) => {
   _data[data.id].password = data.password;
   _data[data.id].wipe = data.wipe;
   _data[data.id].edition = data.edition.replace('+', ' ').replace('%2B', ' ').replace('+', ' ').replace('%2B', ' ');
-	
   fileIO.write(global.internal.resolve(fileName), _data);
 };
 module.exports.processSaveModData = (data, fileName) => {
   if(JSON.stringify(data) == '{}') return; // if its empty return
   let _data = fileIO.readParsed(fileName);
-
   for(let modToChange in data)
   {
     for(let mod of _data){

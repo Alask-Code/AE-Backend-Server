@@ -2,7 +2,6 @@ exports.execute = (sessionID, req, resp, body) => {
   let splittedUrl = req.url.split('/');
   let fileName = splittedUrl[splittedUrl.length - 1].split('.').slice(0, -1).join('.');
   let baseNode = {};
-
   // get images to look through
   if (req.url.includes('/quest')) {
     logger.logInfo(`[IMG.quests]: ${req.url}`);
@@ -20,7 +19,6 @@ exports.execute = (sessionID, req, resp, body) => {
     logger.logInfo(`[IMG.hideout]: ${req.url}`);
     baseNode = res.hideout;
   }
-
   // send image
   server.sendFile(resp, baseNode[fileName]);
 };

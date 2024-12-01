@@ -1,5 +1,4 @@
 'use strict';
-
 class ItemServer {
   constructor() {
     this.output = '';
@@ -7,12 +6,10 @@ class ItemServer {
     this.routeStructure = {};
     this.resetOutput();
   }
-
   /* adds route to check for */
   addRoute(route, callback) {
     this.routes[route] = callback;
   }
-
   updateRouteStruct(){
     this.routeStructure = {
       'Eat': health_f.handler.offraidEat,
@@ -57,13 +54,11 @@ class ItemServer {
       'AddToWishList': wishlist_f.addToWishList,
       'RemoveFromWishList': wishlist_f.removeFromWishList,
       'ApplyInventoryChanges': move_f.applyInventoryChanges,
-      'CreateMapMarker': status_f.handleMapMarker 
+      'CreateMapMarker': status_f.handleMapMarker
     };
   }
-
   handleRoutes(info, sessionID) {
     this.resetOutput();
-
     for (let body of info.data) {
       let pmcData = profile_f.handler.getPmcProfile(sessionID);
       if (body.Action in this.routes) {
@@ -74,23 +69,17 @@ class ItemServer {
     }
     return this.output;
   }
-
-
   getOutput() {
     if (this.output === '') {
       this.resetOutput();
     }
-
     return this.output;
   }
-
   setOutput(data) {
     this.output = data;
   }
-
   resetOutput() {
     this.output = {'items': {'new': [], 'change': [], 'del': []}, 'badRequest': [], 'quests': [], 'ragFairOffers': [], 'builds': [], 'currentSalesSums': {}};
   }
 }
-
 module.exports.handler = new ItemServer();

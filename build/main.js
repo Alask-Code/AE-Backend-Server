@@ -3,13 +3,11 @@ const cp = require('node:child_process');
 const childProcess = require('child_process');
 const UPX = require('upx')('better');
 const { compile } = require('nexe');
-
 function sleep(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
 }
-
 function compileBuild(){
   return new Promise((resolve) => {
     compile({
@@ -39,8 +37,7 @@ function compileBuild(){
           .output('Server.exe')
           .start().then(function(stats) {
             console.log(stats);
-            console.log('\x1b[32m√ Server Compressed!\x1b[0m');		
-
+            console.log('\x1b[32m√ Server Compressed!\x1b[0m');
           }).finally(() => {
             resolve();
           }).catch(function (err) {
@@ -55,7 +52,6 @@ function DrawSpacingHeader(text){
   console.log(`=== | ${text} |`);
   console.log('============================================================');
 }
-
 async function main(){
   console.log('============================================================');
   let i = 1;
@@ -63,20 +59,13 @@ async function main(){
     console.log(`=== | Waiting core [${i++}]`);
     await sleep(500);
   }
-	
   console.log('============================================================');
-
-
   DrawSpacingHeader('\x1b[34m Starting Server Building!\x1b[0m');
-
   await compileBuild();
-
   DrawSpacingHeader('\x1b[32m√ Compilation Finished!\x1b[0m');
-
   while(!fs.existsSync('./core')){
     console.log(`Waiting [${i++}]`);
     await sleep(500);
   }
 }
-
 main();

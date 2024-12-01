@@ -62,11 +62,9 @@ function _load_HideoutData() {
   global._database.hideout.areas = fileIO.readParsed(db.user.cache.hideout_areas);
   if(typeof global._database.hideout.areas.data != 'undefined')
     global._database.hideout.areas = global._database.hideout.areas.data;
-	
   global._database.hideout.production = fileIO.readParsed(db.user.cache.hideout_production);
   if(typeof global._database.hideout.production.data != 'undefined')
     global._database.hideout.production = global._database.hideout.production.data;
-	
   global._database.hideout.scavcase = fileIO.readParsed(db.user.cache.hideout_scavcase);
   if(typeof global._database.hideout.scavcase.data != 'undefined')
     global._database.hideout.scavcase = global._database.hideout.scavcase.data;
@@ -86,12 +84,10 @@ function _load_LocaleData() {
   global._database.locales = { 'menu': {}, 'global': {} };
   for (let lang in db.locales) {
     let menuFile = (fileIO.exist(db.user.cache['locale_menu_' + lang.toLowerCase()])?db.user.cache['locale_menu_' + lang.toLowerCase()]:db.locales[lang].menu);
-		
     global._database.locales.menu[lang] = fileIO.readParsed(menuFile);
     if(typeof global._database.locales.menu[lang].data != 'undefined'){
       global._database.locales.menu[lang] = global._database.locales.menu[lang].data;
     }
-		
     global._database.locales.global[lang] = fileIO.readParsed(db.user.cache['locale_' + lang.toLowerCase()]);
     if(typeof global._database.locales.global[lang].data != 'undefined'){
       global._database.locales.global[lang] = global._database.locales.global[lang].data;
@@ -138,7 +134,6 @@ function _load_WeatherData() {
     logger.logInfo('Loaded Weather: ID: ' + (i++) + ', Name: ' + weather);
   }
 }
-
 exports.execute = () => {
   logger.logInfo('Load: \'Core\'');
   _load_CoreData();

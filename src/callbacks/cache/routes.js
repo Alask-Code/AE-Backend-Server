@@ -2,14 +2,12 @@ exports.cache = () => {
   if (!serverConfig.rebuildCache) {
     return;
   }
-    
   db.user.profiles = {
     'character': 'user/profiles/__REPLACEME__/character.json',
     'dialogue': 'user/profiles/__REPLACEME__/dialogue.json',
     'storage': 'user/profiles/__REPLACEME__/storage.json',
     'userbuilds': 'user/profiles/__REPLACEME__/userbuilds.json'
   },
-    
   db.user.cache = {
     'items': 'user/cache/items.json',
     'quests': 'user/cache/quests.json',
@@ -24,18 +22,14 @@ exports.cache = () => {
     'mods': 'user/cache/mods.json',
     'ragfair_offers': 'user/cache/ragfair_offers.json'
   };
-
   db.user.configs.accounts = 'user/configs/accounts.json';
   db.user.configs.gameplay = 'user/configs/gameplay.json';
-
   for (let trader in db.traders) {
     db.user.cache['assort_' + trader] = 'user/cache/assort_' + trader + '.json';
-
     if ('suits' in db.traders[trader]) {
       db.user.cache['customization_' + trader] = 'user/cache/customization_' + trader + '.json';
     }
   }
-
   for (let locale in db.locales) {
     db.user.cache['locale_' + locale] = 'user/cache/locale_' + locale + '.json';
     db.user.cache['locale_menu_' + locale] = 'user/cache/locale_menu_' + locale + '.json';

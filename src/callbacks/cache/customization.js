@@ -2,7 +2,6 @@ exports.cache = () => {
   if (!serverConfig.rebuildCache) {
     return;
   }
-
   logger.logInfo('Caching: customization.json');
   let base = {'err': 0, 'errmsg': null, 'data': {}};
   for (let file in db.customization) {
@@ -16,6 +15,5 @@ exports.cache = () => {
       base.data[file] = data;
     }
   }
-
   fileIO.write('user/cache/customization.json', base, true, false);
 };

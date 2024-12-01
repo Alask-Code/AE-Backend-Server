@@ -16,6 +16,5 @@ exports.execute = (url, info, sessionID) => {
     obj.Info.Banned = false;
     users.push(obj);
   }
-
   return response_f.getBody(users);
 };

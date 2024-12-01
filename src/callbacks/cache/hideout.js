@@ -2,7 +2,6 @@ exports.cache = () => {
   if (!serverConfig.rebuildCache) {
     return;
   }
-
   for(let type in db.hideout){
     if(type == 'settings') continue;
     logger.logInfo(`Caching: hideout_${type}.json`);
@@ -21,6 +20,4 @@ exports.cache = () => {
     }
     fileIO.write(`user/cache/hideout_${type}.json`, base, true, false);
   }
-	
-	
 };
