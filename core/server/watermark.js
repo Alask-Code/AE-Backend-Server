@@ -8,14 +8,13 @@ const textTable = [
   '\\_| |_/_|\\__\\___|_|  \\___|\\__,_| \\____/___/\\___\\__,_| .__/ \\___|',
   '                                                    | |         ',
   '                                                    |_|         ',
-  '════════════════════════════════════════════════════════════════',
+  '═══════════════════════════════════════════════════════════════════════════════════════════════════════',
   'Version: ' + server.version,
-  '════════════════════════════════════════════════════════════════',
+  'Tested with Altered Escape 2.2.0 and Tarkov 12.9.10988.',
+  '═══════════════════════════════════════════════════════════════════════════════════════════════════════',
   'Author: https://github.com/Alask-Code',
   '2024 - Alask-Code',
-  'Licensed under GPL License. see LICENSE or \'https://www.gnu.org/licenses/gpl-3.0.en.html#license-text\'',
-  '════════════════════════════════════════════════════════════════',
-  'Tested with Altered Escape 2.2.0 and Tarkov 12.9.10988'
+  'Licensed under GPL License. see LICENSE or \'https://www.gnu.org/licenses/gpl-3.0.en.html#license-text\''
 ];
 /* Calculate Box Sizes - START */
 var longestTextTableIndex = 0;
@@ -60,4 +59,3 @@ module.exports.run = () => {
   logger.logRequest(`║ ╚══${box_width_top}═╝ ║`);
   logger.logRequest(`╚══${box_width_top}═════╝`);
 };
-// ├ ─ ┤ ║ ╗ ╔ ╝ ╚ ═ ╠ ╣ ╩
