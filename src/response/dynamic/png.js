@@ -1,1 +1,1 @@
-exports.execute = (url, info, sessionID) => 'IMAGE';
+exports.execute = (url, info, sessionID) => "IMAGE";

@@ -1,1 +1,18 @@
-{}
+{
+	"AID1040373988547qMsEe1ce": {
+		"id": "AID1040373988547qMsEe1ce",
+		"nickname": "",
+		"email": "test",
+		"password": "",
+		"wipe": false,
+		"edition": "Easy"
+	},
+	"AID10521504998646K3knFld": {
+		"id": "AID10521504998646K3knFld",
+		"nickname": "",
+		"email": "alek",
+		"password": "",
+		"wipe": false,
+		"edition": "Standard"
+	}
+}

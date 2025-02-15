@@ -1,1 +1,38 @@
-[]
+[
+	{
+		"name": "Escape",
+		"author": "Altered",
+		"version": "2.2.0",
+		"enabled": true
+	},
+	{
+		"name": "AmmoStats",
+		"author": "Antiqque",
+		"version": "1.1.1",
+		"enabled": true
+	},
+	{
+		"name": "HideoutQOL",
+		"author": "Jizera",
+		"version": "1.1.1",
+		"enabled": true
+	},
+	{
+		"name": "ControlWeather",
+		"author": "Nevermind",
+		"version": "1.0.2",
+		"enabled": true
+	},
+	{
+		"name": "ProfileCleaner",
+		"author": "Nevermind",
+		"version": "1.0.0",
+		"enabled": true
+	},
+	{
+		"name": "AllItemsExamined",
+		"author": "TheMaoci",
+		"version": "1.0.0",
+		"enabled": true
+	}
+]

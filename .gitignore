@@ -4,6 +4,7 @@ package-lock.json
 Server-Icon.exe
 node_modules/
 Server.exe
+user/mods/**/*
 user/cache
 user/logs
 _Dist

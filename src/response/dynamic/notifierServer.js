@@ -1,1 +1,1 @@
-exports.execute = (url, info, sessionID) => 'NOTIFY';
+exports.execute = (url, info, sessionID) => "NOTIFY";

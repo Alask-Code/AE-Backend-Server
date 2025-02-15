@@ -1,0 +1,448 @@
+{
+    "Cat": [
+        {
+            "_id": "",
+            "min": "0",
+            "max": "1",
+            "type": ""
+        },
+        {
+            "_id": "",
+            "min": "0",
+            "max": "1",
+            "type": ""
+        },
+        {
+            "_id": "5b47574386f77428ca22b33b",
+            "min": "0",
+            "max": "150",
+            "type": "bullet"
+        },
+        {
+            "_id": "5b47574386f77428ca22b33c",
+            "min": "0",
+            "max": "10",
+            "type": "ammobox"
+        },
+        {
+            "_id": "5b47574386f77428ca22b345",
+            "min": "2",
+            "max": "8",
+            "type": "special item"
+        },
+        {
+            "_id": "5b619f1a86f77450a702a6f3",
+            "min": "0",
+            "max": "1",
+            "type": "quest item"
+        },
+        {
+            "_id": "5b47574386f77428ca22b343",
+            "min": "0",
+            "max": "1",
+            "type": "maps"
+        },
+        {
+            "_id": "5c518ec986f7743b68682ce2",
+            "min": "0",
+            "max": "1",
+            "type": "mechanical key"
+        },
+        {
+            "_id": "5c518ed586f774119a772aee",
+            "min": "0",
+            "max": "1",
+            "type": "keycard"
+        },
+        {
+            "_id": "5b47574386f77428ca22b341",
+            "min": "0",
+            "max": "1",
+            "type": "info"
+        },
+        {
+            "_id": "5b5f78b786f77447ed5636af",
+            "min": "0",
+            "max": "2000",
+            "type": "money"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2f1",
+            "min": "0",
+            "max": "1",
+            "type": "jewelry"
+        },
+        {
+            "_id": "5b5f740a86f77447ec5d7706",
+            "min": "0",
+            "max": "2",
+            "type": "assault scope"
+        },
+        {
+            "_id": "5b5f742686f774093e6cb4ff",
+            "min": "0",
+            "max": "2",
+            "type": "reflex sight"
+        },
+        {
+            "_id": "5b5f744786f774094242f197",
+            "min": "0",
+            "max": "2",
+            "type": "compact reflex sight"
+        },
+        {
+            "_id": "5b5f749986f774094242f199",
+            "min": "0",
+            "max": "1",
+            "type": "special"
+        },
+        {
+            "_id": "5b5f748386f774093e6cb501",
+            "min": "0",
+            "max": "2",
+            "type": "scope"
+        },
+        {
+            "_id": "5b5f746686f77447ec5d7708",
+            "min": "0",
+            "max": "2",
+            "type": "iron sights"
+        },
+        {
+            "_id": "5b5f71de86f774093f2ecf13",
+            "min": "0",
+            "max": "2",
+            "type": "foregrip"
+        },
+        {
+            "_id": "5b5f73c486f77447ec5d7704",
+            "min": "0",
+            "max": "2",
+            "type": "comb. tact. device"
+        },
+        {
+            "_id": "5b5f737886f774093e6cb4fb",
+            "min": "0",
+            "max": "2",
+            "type": "comb. tact. device 2"
+        },
+        {
+            "_id": "5b5f757486f774093e6cb507",
+            "min": "0",
+            "max": "2",
+            "type": "stock"
+        },
+        {
+            "_id": "5b5f751486f77447ec5d770c",
+            "min": "0",
+            "max": "2",
+            "type": "charging handle"
+        },
+        {
+            "_id": "5b5f755f86f77447ec5d770e",
+            "min": "0",
+            "max": "2",
+            "type": "mount"
+        },
+        {
+            "_id": "5b5f731a86f774093e6cb4f9",
+            "min": "0",
+            "max": "2",
+            "type": "silencer"
+        },
+        {
+            "_id": "5b5f72f786f77447ec5d7702",
+            "min": "0",
+            "max": "2",
+            "type": "comb. muzzle device"
+        },
+        {
+            "_id": "5b5f75c686f774094242f19f",
+            "min": "0",
+            "max": "2",
+            "type": "barrel"
+        },
+        {
+            "_id": "5b5f724c86f774093f2ecf15",
+            "min": "0",
+            "max": "2",
+            "type": "flashhider"
+        },
+        {
+            "_id": "5b5f764186f77447ec5d7714",
+            "min": "0",
+            "max": "2",
+            "type": "receiver"
+        },
+        {
+            "_id": "5b5f754a86f774094242f19b",
+            "min": "0",
+            "max": "4",
+            "type": "magazine"
+        },
+        {
+            "_id": "5b5f75e486f77447ec5d7712",
+            "min": "0",
+            "max": "2",
+            "type": "handguard"
+        },
+        {
+            "_id": "5b5f760586f774093e6cb509",
+            "min": "0",
+            "max": "2",
+            "type": "gasblock"
+        },
+        {
+            "_id": "5b5f74cc86f77447ec5d770a",
+            "min": "0",
+            "max": "2",
+            "type": "auxiliary mod"
+        },
+        {
+            "_id": "5b5f71c186f77409407a7ec0",
+            "min": "0",
+            "max": "2",
+            "type": "bipod"
+        },
+        {
+            "_id": "5b5f761f86f774094242f1a1",
+            "min": "0",
+            "max": "2",
+            "type": "pistol grip"
+        },
+        {
+            "_id": "5b5f73ab86f774094242f195",
+            "min": "0",
+            "max": "2",
+            "type": "flashlight"
+        },
+        {
+            "_id": "55802f3e4bdc2de7118b4584",
+            "min": "0",
+            "max": "0",
+            "type": "UGBL gear mod"
+        },
+        {
+            "_id": "5b5f752e86f774093e6cb505",
+            "min": "0",
+            "max": "1",
+            "type": "UBGL"
+        },
+        {
+            "_id": "5b47574386f77428ca22b33a",
+            "min": "0",
+            "max": "2",
+            "type": "stimulator"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2f3",
+            "min": "0",
+            "max": "4",
+            "type": "medical supplies"
+        },
+        {
+            "_id": "5b47574386f77428ca22b338",
+            "min": "0",
+            "max": "4",
+            "type": "medkit"
+        },
+        {
+            "_id": "5b47574386f77428ca22b337",
+            "min": "0",
+            "max": "4",
+            "type": "drug"
+        },
+        {
+            "_id": "5b47574386f77428ca22b339",
+            "min": "0",
+            "max": "4",
+            "type": "medical item"
+        },
+        {
+            "_id": "5b47574386f77428ca22b336",
+            "min": "0",
+            "max": "4",
+            "type": "food"
+        },
+        {
+            "_id": "5b47574386f77428ca22b335",
+            "min": "0",
+            "max": "4",
+            "type": "drink"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2ef",
+            "min": "0",
+            "max": "3",
+            "type": "electronics"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2f4",
+            "min": "0",
+            "max": "3",
+            "type": "other"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2f2",
+            "min": "0",
+            "max": "3",
+            "type": "flammable"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2f0",
+            "min": "0",
+            "max": "3",
+            "type": "household"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2f6",
+            "min": "0",
+            "max": "3",
+            "type": "barter tools"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2ee",
+            "min": "0",
+            "max": "3",
+            "type": "barter building"
+        },
+        {
+            "_id": "5b47574386f77428ca22b2ed",
+            "min": "0",
+            "max": "3",
+            "type": "energy barter"
+        },
+        {
+            "_id": "5b5f6f8786f77447ed563642",
+            "min": "0",
+            "max": "2",
+            "type": "chest rig"
+        },
+        {
+            "_id": "5b5f704686f77447ec5d76d7",
+            "min": "0",
+            "max": "2",
+            "type": "armored_equipment"
+        },
+        {
+            "_id": "5b5f6f6c86f774093f2ecf0b",
+            "min": "0",
+            "max": "2",
+            "type": "backpack"
+        },
+        {
+            "_id": "5b47574386f77428ca22b330",
+            "min": "0",
+            "max": "4",
+            "type": "helmet"
+        },
+        {
+            "_id": "5b47574386f77428ca22b32f",
+            "min": "0",
+            "max": "4",
+            "type": "face cover"
+        },
+        {
+            "_id": "5b47574386f77428ca22b331",
+            "min": "0",
+            "max": "2",
+            "type": "visor"
+        },
+        {
+            "_id": "5b5f6f3c86f774094242ef87",
+            "min": "0",
+            "max": "2",
+            "type": "headset"
+        },
+        {
+            "_id": "5b5f701386f774093f2ecf0f",
+            "min": "0",
+            "max": "2",
+            "type": "armor"
+        },
+        {
+            "_id": "5b5f78fc86f77409407a7f90",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f796a86f774093f2ed3c0",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f78e986f77447ed5636b1",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f794b86f77409407a7f92",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f79a486f77409407a7f94",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f798886f77447ed5636b5",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f792486f77447ed5636b3",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f7a2386f774093f2ed3c4",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f79d186f774093f2ed3c2",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "5b5f791486f774093f2ed3be",
+            "min": "0",
+            "max": "2",
+            "type": "weapons"
+        },
+        {
+            "_id": "55818b014bdc2ddc698b456b",
+            "min": "0",
+            "max": "0",
+            "type": "UBGL"
+        },
+        {
+            "_id": "5b5f7a0886f77409407a7f96",
+            "min": "0",
+            "max": "2",
+            "type": "melee"
+        },
+        {
+            "_id": "5b5f6fa186f77409407a7eb7",
+            "min": "0",
+            "max": "1",
+            "type": "cases"
+        },
+        {
+            "_id": "5b5f6fd286f774093f2ecf0d",
+            "min": "0",
+            "max": "1",
+            "type": "port container"
+        }
+    ]
+}

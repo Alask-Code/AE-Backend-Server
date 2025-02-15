@@ -1,0 +1,13 @@
+{
+	"err": 0,
+	"errmsg": null,
+	"data": {
+		"_id": "pmcAID1040373988547qMsEe1ce",
+		"suites": [
+			"5cde9ec17d6c8b04723cf479",
+			"5cde9e957d6c8b0474535da7",
+			"Cryeac_Black_Lower",
+			"Cryeac_Black_Upper"
+		]
+	}
+}

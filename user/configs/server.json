@@ -3,8 +3,8 @@
 	"ip_backend": "127.0.0.1",
 	"port": 443,
 	"eventPollIntervalSec": 60,
-	"rebuildCache": false,
-	"name": "AE Backend Server",
+	"rebuildCache": true,
+	"name": "JET/Altered Escape - 2.2.0.4",
 	"offline": {
 		"OfflineLootPatch": true,
 		"InsuranceScreenPatch": true,
