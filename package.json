@@ -5,7 +5,7 @@
   "author": "Alask-Code",
   "license": "GPL-3.0-only",
   "scripts": {
-    "dev": "nodemon core/main.js",
+    "dev": "nodemon --watch core/main.js",
     "start": "node core/main.js",
     "cleanCache": "utils\\cleanCache.bat",
     "build": "utils\\build.bat",
